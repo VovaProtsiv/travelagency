@@ -25,7 +25,6 @@ export class UserService {
   }
 
   public edit(user: User) {
-    console.log(user.email);
     let url = this.usersUrl + "/" + user.id;
     return this.http.put<User>(url, user);
   }
