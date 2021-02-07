@@ -1,0 +1,23 @@
+<div class="card my-5">
+  <div class="card-body">
+    <table class="table table-bordered table-striped">
+      <thead class="thead-dark">
+      <tr>
+        <th scope="col">№</th>
+        <th scope="col">id</th>
+        <th scope="col">Name</th>
+        <th colspan="2">Operations</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr *ngFor="let hotel of hotels; index as i">
+        <td>{{ i+1 }}</td>
+        <td>{{ hotel.id }}</td>
+        <td>{{ hotel.name }}</td>
+        <!--<td><button class="btn btn-danger" (click)="deleteHotel(hotel)">Delete</button></td>
+        <td><button class="btn btn-success" (click)="updateHotel(hotel)">Edit</button></td>-->
+      </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
