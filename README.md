@@ -1,33 +1,40 @@
-#Travel agency 
+# Travel agency 
 
-##Technology
+## Technology
 
 Create web project for travel agency using 
 
-Back-end:
+### Back-end:
 
 -	Maven
 -	Spring Boot
 -	Spring Security
 
-Front-end:
+### Front-end:
 
 - Angular
-##Requirements:
-###Roles: 
+
+## Requirements:
+
+### Roles: 
+
 -	User
 -	Manager
 
-###User and Manager can 
+### User and Manager can 
+
 -	find hotels in different countries
 -	check if there are available rooms in hotel for period
 -	book available rooms on the concrete date
 
-###Manager additional can
+### Manager additional can
+
 -	add hotels in the system
 -	add rooms to the hotel
 -	view all users and their orders
-##Pages
+
+## Pages
+
 In the project should be at least three pages
 -	‘Login’ page
 -	‘Home page’ for User and Manager
