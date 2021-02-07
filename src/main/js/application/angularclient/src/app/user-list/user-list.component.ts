@@ -26,4 +26,10 @@ export class UserListComponent implements OnInit {
       this.users = this.users.filter(u => u !== user);
     });
   }
+
+  updateUser(user: User) {
+    window.localStorage.removeItem("editUserId");
+    window.localStorage.setItem("editUserId", user.id.toString());
+    this.router.navigate(['edit-user']);
+  }
 }

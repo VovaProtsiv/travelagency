@@ -23,6 +23,16 @@ export class UserService {
   public delete(user: User) {
     return this.http.delete(this.usersUrl + "/" + user.id);
   }
+
+  public edit(user: User) {
+    console.log(user.email);
+    let url = this.usersUrl + "/" + user.id;
+    return this.http.put<User>(url, user);
+  }
+
+  getUserById(id: number): Observable<User> {
+    return this.http.get<User>(this.usersUrl + "/" + id);
+  }
 }
 
 

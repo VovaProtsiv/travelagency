@@ -3,18 +3,21 @@
     <table class="table table-bordered table-striped">
       <thead class="thead-dark">
       <tr>
-        <th scope="col">#</th>
+        <th scope="col">№</th>
+        <th scope="col">id</th>
         <th scope="col">Name</th>
         <th scope="col">Email</th>
-        <th scope="col">Operations</th>
+        <th colspan="2">Operations</th>
       </tr>
       </thead>
       <tbody>
-      <tr *ngFor="let user of users">
+      <tr *ngFor="let user of users; index as i">
+        <td>{{ i+1 }}</td>
         <td>{{ user.id }}</td>
         <td>{{ user.name }}</td>
         <td><a href="mailto:{{ user.email }}">{{ user.email }}</a></td>
         <td><button class="btn btn-danger" (click)="deleteUser(user)">Delete</button></td>
+        <td><button class="btn btn-success" (click)="updateUser(user)">Edit</button></td>
       </tr>
       </tbody>
     </table>
