@@ -5,7 +5,9 @@ import dev.pprotsiv.travel.repo.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import javax.persistence.EntityNotFoundException;
 import java.util.List;
+import java.util.Optional;
 
 
 @RestController
@@ -24,6 +26,11 @@ public class UserController {
         return (List<User>) userRepository.findAll();
     }
 
+    @GetMapping("/users/{id}")
+    public User getUserById(@PathVariable long id) {
+        return userRepository.findById(id).orElseThrow(() -> new EntityNotFoundException("User with id= " + id + " not found"));
+    }
+
     @PostMapping("/users")
     void addUser(@RequestBody User user) {
         userRepository.save(user);
@@ -32,6 +39,13 @@ public class UserController {
     @DeleteMapping("/users/{id}")
     void deleteUser(@PathVariable long id) {
         userRepository.deleteById(id);
+    }
+
+    @PutMapping("/users/{id}")
+    public User editUser(@PathVariable long id) {
+        Optional<User> user = userRepository.findById(id);
+        return userRepository.save(user.
+                orElseThrow(() -> new EntityNotFoundException("User with id= " + id + " not found")));
     }
 }
 
