@@ -4,11 +4,13 @@ import dev.pprotsiv.travel.exception.NullEntityReferenceException;
 import dev.pprotsiv.travel.model.User;
 import dev.pprotsiv.travel.repo.UserRepository;
 import dev.pprotsiv.travel.service.UserService;
+import org.springframework.stereotype.Service;
 
 import javax.persistence.EntityNotFoundException;
 import java.util.ArrayList;
 import java.util.List;
 
+@Service
 public class UserServiceImpl implements UserService {
     private final UserRepository userRepository;
 
