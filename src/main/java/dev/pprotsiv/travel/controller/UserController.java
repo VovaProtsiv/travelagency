@@ -1,51 +1,47 @@
 package dev.pprotsiv.travel.controller;
 
 import dev.pprotsiv.travel.model.User;
-import dev.pprotsiv.travel.repo.UserRepository;
+import dev.pprotsiv.travel.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
-import javax.persistence.EntityNotFoundException;
 import java.util.List;
-import java.util.Optional;
 
 
 @RestController
 @CrossOrigin(origins = "http://localhost:4200")
 public class UserController {
 
-    private final UserRepository userRepository;
+    private final UserService userService;
 
     @Autowired
-    public UserController(UserRepository userRepository) {
-        this.userRepository = userRepository;
+    public UserController(UserService userService) {
+        this.userService = userService;
     }
 
     @GetMapping("/users")
     public List<User> getUsers() {
-        return (List<User>) userRepository.findAll();
+        return userService.getAll();
     }
 
     @GetMapping("/users/{id}")
     public User getUserById(@PathVariable long id) {
-        return userRepository.findById(id).orElseThrow(() -> new EntityNotFoundException("User with id= " + id + " not found"));
+        return userService.readById(id);
     }
 
     @PostMapping("/users")
-    void addUser(@RequestBody User user) {
-        userRepository.save(user);
+    public User addUser(@RequestBody User user) {
+        return userService.create(user);
     }
 
     @DeleteMapping("/users/{id}")
     void deleteUser(@PathVariable long id) {
-        userRepository.deleteById(id);
+        userService.delete(id);
     }
 
     @PutMapping("/users/{id}")
-    public User editUser(@PathVariable long id) {
-        Optional<User> user = userRepository.findById(id);
-        return userRepository.save(user.
-                orElseThrow(() -> new EntityNotFoundException("User with id= " + id + " not found")));
+    public User editUser(@RequestBody User user, @PathVariable long id) {
+        return userService.update(user);
     }
 }
 

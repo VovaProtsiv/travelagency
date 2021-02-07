@@ -1,18 +1,24 @@
 package dev.pprotsiv.travel.model;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
+import javax.validation.constraints.Email;
+import javax.validation.constraints.NotBlank;
 import java.util.Objects;
 
 @Entity
+@Table(name = "users")
 public class User {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
+    
+    @NotBlank(message = "The 'name' cannot be empty")
+    @Column(name = "name", nullable = false)
     private final String name;
+
+    @Email(message = "Email should be valid")
+    @Column(name = "email", nullable = false, unique = true)
     private final String email;
 
     public User() {
