@@ -45,7 +45,6 @@ public class TravelApplication {
             address1.setHouseNumber("12-b1");
             address1.setHotel(hotelService.readById(2));
             addressService.create(address1);
-            System.out.println(hotelService.readById(2).getAddress());
             System.out.println("------Address-------");
             addressService.getAll().forEach(System.out::println);
         };
