@@ -29,7 +29,7 @@ public class TravelApplication {
                 User user = new User(name, name.toLowerCase() + "@domain.com");
                 userRepository.save(user);
             });
-            Stream.of("Quick Stop Hotel","Hillside Hotel","Malibu").forEach(name->{
+            /*Stream.of("Quick Stop Hotel","Hillside Hotel","Malibu").forEach(name->{
                 Hotel hotel = new Hotel();
                 hotel.setName(name);
                 hotelService.create(hotel);
@@ -46,7 +46,7 @@ public class TravelApplication {
             address1.setHotel(hotelService.readById(2));
             addressService.create(address1);
             System.out.println("------Address-------");
-            addressService.getAll().forEach(System.out::println);
+            addressService.getAll().forEach(System.out::println);*/
         };
     }
 }
