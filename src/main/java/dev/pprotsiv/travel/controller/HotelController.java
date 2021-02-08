@@ -1,18 +1,13 @@
 package dev.pprotsiv.travel.controller;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import dev.pprotsiv.travel.dto.HotelDto;
-import dev.pprotsiv.travel.dto.HotelDtoMapper;
 import dev.pprotsiv.travel.model.Hotel;
-import dev.pprotsiv.travel.model.User;
 import dev.pprotsiv.travel.service.HotelService;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 @RestController
+@RequestMapping("/hotels")
 @CrossOrigin(origins = "http://localhost:4200")
 public class HotelController {
     private final HotelService hotelService;
@@ -21,8 +16,27 @@ public class HotelController {
         this.hotelService = hotelService;
     }
 
-    @GetMapping("/hotels")
-    public List<HotelDto> getHotels() {
-     return  HotelDtoMapper.convertToDto(hotelService.getAll());
+    @GetMapping("/all")
+    public List<Hotel> getHotels() {
+     return  hotelService.getAll();
+    }
+    @GetMapping("/{id}")
+    public Hotel getUserById(@PathVariable long id) {
+        return hotelService.readById(id);
+    }
+
+    @PostMapping
+    public Hotel addHotel(@RequestBody Hotel hotel) {
+        return hotelService.create(hotel);
+    }
+
+    @DeleteMapping("/{id}")
+    void deleteHotel(@PathVariable long id) {
+        hotelService.delete(id);
+    }
+
+    @PutMapping
+    public Hotel editHotel(@RequestBody Hotel hotel) {
+        return hotelService.update(hotel);
     }
 }
