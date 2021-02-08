@@ -27,19 +27,15 @@ public class Address {
     @Column(name = "houseNumber", nullable = false)
     private String houseNumber;
 
-    @OneToOne
-    @JoinColumn(name = "hotel_id")
-    private Hotel hotel;
 
     public Address() {
     }
 
-    public Address(String country, String city, String street, String houseNumber, Hotel hotel) {
+    public Address(String country, String city, String street, String houseNumber) {
         this.country = country;
         this.city = city;
         this.street = street;
         this.houseNumber = houseNumber;
-        this.hotel = hotel;
     }
 
     public Long getId() {
@@ -82,13 +78,6 @@ public class Address {
         this.houseNumber = houseNumber;
     }
 
-    public Hotel getHotel() {
-        return hotel;
-    }
-
-    public void setHotel(Hotel hotel) {
-        this.hotel = hotel;
-    }
 
     @Override
     public boolean equals(Object o) {
@@ -111,7 +100,6 @@ public class Address {
                 ", city='" + city + '\'' +
                 ", street='" + street + '\'' +
                 ", houseNumber='" + houseNumber + '\'' +
-                ", hotel=" + hotel +
                 '}';
     }
 }
