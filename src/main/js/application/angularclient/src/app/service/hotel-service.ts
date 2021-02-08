@@ -13,6 +13,6 @@ export class HotelService {
     this.usersUrl = 'http://localhost:8080/hotels';
   }
   public findAll(): Observable<Hotel[]> {
-    return this.http.get<Hotel[]>(this.usersUrl);
+    return this.http.get<Hotel[]>(this.usersUrl+"/all");
   }
 }
