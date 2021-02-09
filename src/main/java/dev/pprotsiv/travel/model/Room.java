@@ -1,5 +1,6 @@
 package dev.pprotsiv.travel.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.hibernate.validator.constraints.Range;
 
 import javax.persistence.*;
@@ -22,6 +23,11 @@ public class Room {
     @Range(min = 1, max = 20, message = "Sleeps should be with minimum 1 and maximum 20")
     @Column(name = "sleeps", nullable = false)
     private Integer sleeps;
+
+    @JsonIgnore
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "hotel_id")
+    private Hotel hotel;
 
     public Room() {
     }
@@ -49,6 +55,14 @@ public class Room {
 
     public Integer getSleeps() {
         return sleeps;
+    }
+
+    public Hotel getHotel() {
+        return hotel;
+    }
+
+    public void setHotel(Hotel hotel) {
+        this.hotel = hotel;
     }
 
     public void setSleeps(Integer sleeps) {
