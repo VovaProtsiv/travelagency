@@ -4,11 +4,12 @@ import dev.pprotsiv.travel.exception.NullEntityReferenceException;
 import dev.pprotsiv.travel.model.Room;
 import dev.pprotsiv.travel.repo.RoomRepository;
 import dev.pprotsiv.travel.service.RoomService;
+import org.springframework.stereotype.Service;
 
 import javax.persistence.EntityNotFoundException;
 import java.util.ArrayList;
 import java.util.List;
-
+@Service
 public class RoomServiceImpl implements RoomService {
     private final RoomRepository roomRepository;
 
@@ -48,5 +49,10 @@ public class RoomServiceImpl implements RoomService {
     public List<Room> getAll() {
         List<Room> rooms = roomRepository.findAll();
         return rooms.isEmpty() ? new ArrayList<>() : rooms;
+    }
+
+    @Override
+    public List<Room> getAllByHotelId(long id) {
+        return roomRepository.findAllByHotel_Id(id);
     }
 }
