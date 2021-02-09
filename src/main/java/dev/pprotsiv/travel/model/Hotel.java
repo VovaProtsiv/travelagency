@@ -15,8 +15,8 @@ public class Hotel {
     @Column(name = "name", nullable = false)
     private String name;
 
-    @OneToOne(mappedBy = "hotel", cascade = CascadeType.REMOVE,
-            fetch = FetchType.LAZY)
+    @OneToOne(cascade=CascadeType.ALL)
+    @JoinColumn(name="addressid")
     private Address address;
 
     public Hotel() {
