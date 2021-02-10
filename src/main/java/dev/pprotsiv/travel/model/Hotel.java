@@ -72,6 +72,13 @@ public class Hotel {
         this.rooms = rooms;
     }
 
+    public boolean addRoom (Room room){
+        return this.rooms.add(room);
+    }
+    public boolean removeRoom(Room room){
+       return this.rooms.remove(room);
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
