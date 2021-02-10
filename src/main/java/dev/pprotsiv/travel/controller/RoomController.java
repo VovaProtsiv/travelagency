@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/room")
+@RequestMapping("/hotel")
 @CrossOrigin(origins = "http://localhost:4200")
 public class RoomController {
     private final RoomService roomService;
@@ -20,20 +20,38 @@ public class RoomController {
         this.hotelService = hotelService;
     }
 
-    @GetMapping("/{id}")
+    @GetMapping("/{id}/all")
     public List<Room> getRoomsByHotelId(@PathVariable long id) {
         return roomService.getAllByHotelId(id);
     }
 
+    @GetMapping("/{hotel_id}/room/{room_id}")
+    public Room getRoom(@PathVariable long hotel_id, @PathVariable long room_id) {
+        return roomService.readById(room_id);
+    }
+
     @PostMapping("/{id}/add")
-   public Room addRoom(@PathVariable long id,@RequestBody Room room){
+    public Room addRoom(@PathVariable long id, @RequestBody Room room) {
         Hotel hotel = hotelService.readById(id);
         room.setHotel(hotel);
         roomService.create(room);
-        List<Room> rooms = hotel.getRooms();
-        rooms.add(room);
-        hotel.setRooms(rooms);
+        hotel.addRoom(room);
         hotelService.update(hotel);
         return room;
+    }
+
+    @PutMapping("/{hotel_id}/edit/{room_id}")
+    public Room editRoom(@PathVariable long hotel_id, @PathVariable long room_id, @RequestBody Room room) {
+        room.setHotel(hotelService.readById(hotel_id));
+        roomService.update(room);
+        return room;
+    }
+
+    @DeleteMapping("/{hotel_id}/remove/{room_id}")
+    public void deleteRoom(@PathVariable long hotel_id, @PathVariable long room_id) {
+        Hotel hotel = hotelService.readById(hotel_id);
+        hotel.removeRoom(roomService.readById(room_id));
+        hotelService.update(hotel);
+        roomService.delete(room_id);
     }
 }
