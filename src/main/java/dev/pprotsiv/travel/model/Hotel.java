@@ -1,7 +1,11 @@
 package dev.pprotsiv.travel.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 
 @Entity
@@ -18,6 +22,10 @@ public class Hotel {
     @OneToOne(cascade=CascadeType.ALL)
     @JoinColumn(name="addressid")
     private Address address;
+
+    @JsonIgnore
+    @OneToMany(cascade = CascadeType.REMOVE, orphanRemoval = true,mappedBy = "hotel")
+    private List<Room> rooms = new ArrayList<>();
 
     public Hotel() {
     }
@@ -54,6 +62,21 @@ public class Hotel {
 
     public void setAddress(Address address) {
         this.address = address;
+    }
+
+    public List<Room> getRooms() {
+        return rooms;
+    }
+
+    public void setRooms(List<Room> rooms) {
+        this.rooms = rooms;
+    }
+
+    public boolean addRoom (Room room){
+        return this.rooms.add(room);
+    }
+    public boolean removeRoom(Room room){
+       return this.rooms.remove(room);
     }
 
     @Override
