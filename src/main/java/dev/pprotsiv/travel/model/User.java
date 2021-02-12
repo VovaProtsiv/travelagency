@@ -1,8 +1,12 @@
 package dev.pprotsiv.travel.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 
 @Entity
@@ -20,6 +24,10 @@ public class User {
     @Email(message = "Email should be valid")
     @Column(name = "email", nullable = false, unique = true)
     private final String email;
+
+    @JsonIgnore
+    @OneToMany(mappedBy = "client")
+    private List<Order> orders = new ArrayList<Order>();
 
     public User() {
         this.name = "";

@@ -6,7 +6,9 @@ import org.hibernate.validator.constraints.Range;
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
+import java.util.HashSet;
 import java.util.Objects;
+import java.util.Set;
 
 @Entity
 @Table(name = "rooms")
@@ -29,13 +31,13 @@ public class Room {
     @JoinColumn(name = "hotel_id")
     private Hotel hotel;
 
+    @JsonIgnore
+    @ManyToMany(mappedBy = "rooms")
+    private Set<Order> orders = new HashSet<Order>();
+
     public Room() {
     }
 
-    public Room(String name, Integer sleeps) {
-        this.name = name;
-        this.sleeps = sleeps;
-    }
 
     public Long getId() {
         return id;
@@ -67,6 +69,24 @@ public class Room {
 
     public void setSleeps(Integer sleeps) {
         this.sleeps = sleeps;
+    }
+
+    public Set<Order> getOrders() {
+        return orders;
+    }
+
+    public void setOrders(Set<Order> orders) {
+        this.orders = orders;
+    }
+
+    public void addOrder(Order order) {
+        this.orders.add(order);
+        order.addRoom(this);
+    }
+
+    public void removeOrder(Order order) {
+        this.orders.remove(order);
+        order.removeRoom(this);
     }
 
     @Override
