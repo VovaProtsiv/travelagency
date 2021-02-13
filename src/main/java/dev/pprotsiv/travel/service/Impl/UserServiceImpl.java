@@ -2,6 +2,7 @@ package dev.pprotsiv.travel.service.Impl;
 
 import dev.pprotsiv.travel.exception.NullEntityReferenceException;
 import dev.pprotsiv.travel.model.User;
+import dev.pprotsiv.travel.projection.UserProjection;
 import dev.pprotsiv.travel.repo.UserRepository;
 import dev.pprotsiv.travel.service.UserService;
 import org.springframework.stereotype.Service;
@@ -9,6 +10,7 @@ import org.springframework.stereotype.Service;
 import javax.persistence.EntityNotFoundException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class UserServiceImpl implements UserService {
@@ -34,6 +36,13 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    public UserProjection getProjection(long id) {
+        return Optional.ofNullable(userRepository.findProjectionById(id)).orElseThrow(
+                () -> new EntityNotFoundException("User with id " + id + " not found")
+        );
+    }
+
+    @Override
     public User update(User user) {
         if (user != null) {
             readById(user.getId());
@@ -47,10 +56,12 @@ public class UserServiceImpl implements UserService {
         userRepository.delete(readById(id));
     }
 
+
+
     @Override
-    public List<User> getAll() {
-        List<User> users = userRepository.findAll();
-        return users.isEmpty() ? new ArrayList<>() : users;
+    public List<UserProjection> getAllProjections() {
+        List<UserProjection> allUsers = userRepository.getAllProjections();
+        return allUsers.isEmpty() ? new ArrayList<>() : allUsers;
     }
 
 
