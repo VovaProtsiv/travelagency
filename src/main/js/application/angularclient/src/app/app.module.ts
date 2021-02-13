@@ -10,6 +10,7 @@ import { UserService } from './service/user.service';
 import { EditUserComponent } from './user/edit-user/edit-user.component';
 import {HotelService} from "./service/hotel-service";
 import {HotelListComponent} from "./hotel/hotel-list/hotel-list.component";
+import { HotelFormComponent } from './hotel/hotel-form/hotel-form.component';
 
 @NgModule({
   declarations: [
@@ -17,7 +18,8 @@ import {HotelListComponent} from "./hotel/hotel-list/hotel-list.component";
     UserListComponent,
     UserFormComponent,
     EditUserComponent,
-    HotelListComponent
+    HotelListComponent,
+    HotelFormComponent
   ],
   imports: [
     BrowserModule,
