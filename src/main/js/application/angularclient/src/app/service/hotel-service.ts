@@ -2,6 +2,7 @@ import {Injectable} from '@angular/core';
 import {HttpClient} from "@angular/common/http";
 import {Observable} from "rxjs";
 import {Hotel} from "../model/hotel";
+import {User} from "../model/user";
 
 @Injectable({
   providedIn: 'root'
@@ -14,5 +15,9 @@ export class HotelService {
   }
   public findAll(): Observable<Hotel[]> {
     return this.http.get<Hotel[]>(this.usersUrl+"/all");
+  }
+
+  save(hotel: Hotel) {
+    return this.http.post<Hotel>(this.usersUrl, hotel);
   }
 }

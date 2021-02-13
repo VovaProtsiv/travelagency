@@ -1,14 +1,18 @@
 package dev.pprotsiv.travel.service.Impl;
 
 import dev.pprotsiv.travel.exception.NullEntityReferenceException;
+import dev.pprotsiv.travel.model.Address;
 import dev.pprotsiv.travel.model.Hotel;
+import dev.pprotsiv.travel.projection.HotelProjection;
 import dev.pprotsiv.travel.repo.HotelRepository;
+import dev.pprotsiv.travel.service.AddressService;
 import dev.pprotsiv.travel.service.HotelService;
 import org.springframework.stereotype.Service;
 
 import javax.persistence.EntityNotFoundException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class HotelServiceImpl implements HotelService {
@@ -33,6 +37,13 @@ public class HotelServiceImpl implements HotelService {
     }
 
     @Override
+    public HotelProjection readProjectionById(long id) {
+        return Optional.ofNullable(hotelRepository.findProjectionById(id)).orElseThrow(
+                () -> new EntityNotFoundException("Hotel with id " + id + " not found")
+        );
+    }
+
+    @Override
     public Hotel update(Hotel hotel) {
         if (hotel != null) {
             readById(hotel.getId());
@@ -47,8 +58,9 @@ public class HotelServiceImpl implements HotelService {
     }
 
     @Override
-    public List<Hotel> getAll() {
-        List<Hotel> hotels = hotelRepository.findAll();
+    public List<HotelProjection> getAllProjections() {
+        List<HotelProjection> hotels = hotelRepository.findAllProjection();
         return hotels.isEmpty() ? new ArrayList<>() : hotels;
     }
-}
+
+  }

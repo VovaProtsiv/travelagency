@@ -1,6 +1,9 @@
 package dev.pprotsiv.travel.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import dev.pprotsiv.travel.deserializer.HotelDeserializer;
+
 
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
@@ -8,13 +11,13 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
+@JsonDeserialize(using = HotelDeserializer.class)
 @Entity
 @Table(name = "hotels")
 public class Hotel {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-
     @NotBlank(message = "The 'name' cannot be empty")
     @Column(name = "name", nullable = false)
     private String name;
