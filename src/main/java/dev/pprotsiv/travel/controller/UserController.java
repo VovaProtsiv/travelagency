@@ -1,8 +1,11 @@
 package dev.pprotsiv.travel.controller;
 
 import dev.pprotsiv.travel.model.User;
+import dev.pprotsiv.travel.projection.UserProjection;
 import dev.pprotsiv.travel.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -19,29 +22,30 @@ public class UserController {
         this.userService = userService;
     }
 
+
     @GetMapping("/users")
-    public List<User> getUsers() {
-        return userService.getAll();
+    public ResponseEntity<List<UserProjection>> getUsers() {
+        return ResponseEntity.status(HttpStatus.OK).body(userService.getAllProjections());
     }
 
     @GetMapping("/users/{id}")
-    public User getUserById(@PathVariable long id) {
-        return userService.readById(id);
+    public ResponseEntity<UserProjection> getUserById(@PathVariable long id) {
+        return ResponseEntity.status(HttpStatus.OK).body(userService.getProjection(id));
     }
 
     @PostMapping("/users")
-    public User addUser(@RequestBody User user) {
-        return userService.create(user);
+    public ResponseEntity<User> addUser(@RequestBody User user) {
+        return ResponseEntity.status(HttpStatus.OK).body(userService.create(user));
     }
 
     @DeleteMapping("/users/{id}")
-    void deleteUser(@PathVariable long id) {
+    public void deleteUser(@PathVariable long id) {
         userService.delete(id);
     }
 
     @PutMapping("/users/{id}")
-    public User editUser(@RequestBody User user, @PathVariable long id) {
-        return userService.update(user);
+    public ResponseEntity<User> editUser(@RequestBody User user, @PathVariable long id) {
+        return ResponseEntity.status(HttpStatus.OK).body(userService.update(user));
     }
 }
 
