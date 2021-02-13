@@ -26,7 +26,7 @@ public class User {
     private final String email;
 
     @JsonIgnore
-    @OneToMany(mappedBy = "client")
+    @OneToMany(mappedBy = "client",cascade = CascadeType.REMOVE)
     private List<Order> orders = new ArrayList<Order>();
 
     public User() {
