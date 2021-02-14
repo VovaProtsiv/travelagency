@@ -21,4 +21,15 @@ export class HotelListComponent implements OnInit {
     });
   }
 
+  deleteHotel(hotel: Hotel) {
+    this.hotelService.delete(hotel).subscribe(result=> {
+      this.hotels = this.hotels.filter(h => h != hotel);
+    });
+  }
+
+  updateHotel(hotel: Hotel) {
+    window.localStorage.removeItem("editHotelId");
+    window.localStorage.setItem("editHotelId", hotel.id.toString());
+    this.router.navigate(['hotel-edit']);
+  }
 }
