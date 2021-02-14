@@ -1,0 +1,23 @@
+<div class="card my-5">
+  <div class="card-body">
+    <table class="table table-bordered">
+      <thead class="thead-light">
+      <tr>
+        <th scope="col">Sleeps</th>
+        <th scope="col">Room type</th>
+        <th scope="col">Price</th>
+        <th colspan="2">Operations</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr *ngFor="let room of rooms">
+        <td>{{ room.sleeps }}</td>
+        <td>{{ room.name }}</td>
+        <td>****$</td>
+        <td><button class="btn btn-success"(click)="updateRoom(room)" >Edit</button></td>
+        <td><button class="btn btn-success" (click)="deleteRoom(room)">Delete</button></td>
+      </tr>
+      </tbody>
+    </table>
+  </div>
+</div>

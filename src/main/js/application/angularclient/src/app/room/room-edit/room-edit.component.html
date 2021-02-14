@@ -1,0 +1,31 @@
+<div class="card my-5">
+  <div class="card-body">
+    <form [formGroup]="editForm" >
+      <div class="form-group">
+        <label for="id">Id</label>
+        <input type="text" class="form-control" formControlName="id" id="id" name="id" readonly>
+      </div>
+
+      <div class="form-group">
+        <label for="name">Name</label>
+        <input type="text" class="form-control" formControlName="name" id="name" name="name"
+               placeholder="Enter room's name">
+      </div>
+
+      <div class="form-group">
+        <label for="sleeps">Sleeps</label>
+        <input type="number" formControlName="sleeps" class="form-control" id="sleeps"
+               name="sleeps"
+               placeholder="Enter room sleeps">
+
+      </div>
+      <div class="form-group">
+        <label for="id">Hotel Id</label>
+        <input type="text" class="form-control" formControlName="hotelId" id="hotelId" name="hotelId" readonly>
+      </div>
+      <button class="btn btn-success" (click)="ngOnInit()">Cancel</button>
+      <button type="submit" class="btn btn-info"  (click)="onSubmit()">Update</button>
+    </form>
+  </div>
+</div>
+

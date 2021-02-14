@@ -45,9 +45,9 @@ public class HotelController {
         hotelService.delete(id);
     }
 
-    @PutMapping
-    public Hotel editHotel(@RequestBody Hotel hotel) {
-        return hotelService.update(hotel);
+    @PutMapping("/{id}")
+    public ResponseEntity<Hotel> editHotel(@RequestBody Hotel hotel, @PathVariable long id) {
+        return ResponseEntity.status(HttpStatus.OK).body(hotelService.update(hotel));
     }
 
     @PostMapping("/{hotel_id}/add/address")

@@ -1,7 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {Hotel} from "../../model/hotel";
 import {ActivatedRoute, Router} from "@angular/router";
-import {UserService} from "../../service/user.service";
 import {HotelService} from "../../service/hotel-service";
 
 @Component({
@@ -21,4 +20,21 @@ export class HotelListComponent implements OnInit {
     });
   }
 
+  deleteHotel(hotel: Hotel) {
+    this.hotelService.delete(hotel).subscribe(result=> {
+      this.hotels = this.hotels.filter(h => h != hotel);
+    });
+  }
+
+  updateHotel(hotel: Hotel) {
+    window.localStorage.removeItem("editHotelId");
+    window.localStorage.setItem("editHotelId", hotel.id.toString());
+    this.router.navigate(['hotel-edit']);
+  }
+
+  addRoom(id: string) {
+    window.localStorage.removeItem("HotelIdAddRoom");
+    window.localStorage.setItem("HotelIdAddRoom", id.toString());
+    this.router.navigate(['hotel/'+id+'/add-room']);
+  }
 }

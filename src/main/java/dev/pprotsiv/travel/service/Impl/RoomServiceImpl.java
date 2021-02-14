@@ -2,6 +2,7 @@ package dev.pprotsiv.travel.service.Impl;
 
 import dev.pprotsiv.travel.exception.NullEntityReferenceException;
 import dev.pprotsiv.travel.model.Room;
+import dev.pprotsiv.travel.projection.RoomProjection;
 import dev.pprotsiv.travel.repo.RoomRepository;
 import dev.pprotsiv.travel.service.RoomService;
 import org.springframework.stereotype.Service;
@@ -9,6 +10,8 @@ import org.springframework.stereotype.Service;
 import javax.persistence.EntityNotFoundException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
+
 @Service
 public class RoomServiceImpl implements RoomService {
     private final RoomRepository roomRepository;
@@ -28,6 +31,12 @@ public class RoomServiceImpl implements RoomService {
     @Override
     public Room readById(long id) {
         return roomRepository.findById(id).orElseThrow(
+                () -> new EntityNotFoundException("Room with id " + id + " not found"));
+    }
+
+    @Override
+    public RoomProjection readProjectionById(long id) {
+        return Optional.ofNullable(roomRepository.findProjectionById(id)).orElseThrow(
                 () -> new EntityNotFoundException("Room with id " + id + " not found"));
     }
 
@@ -52,7 +61,10 @@ public class RoomServiceImpl implements RoomService {
     }
 
     @Override
-    public List<Room> getAllByHotelId(long id) {
-        return roomRepository.findAllByHotel_Id(id);
+    public List<RoomProjection> getAllProjectionsByHotelId(long id) {
+        List<RoomProjection> rooms = roomRepository.findAllProjectionByHotelId(id);
+        return rooms.isEmpty() ? new ArrayList<>() : rooms;
     }
+
+
 }

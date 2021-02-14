@@ -8,16 +8,26 @@ import {User} from "../model/user";
   providedIn: 'root'
 })
 export class HotelService {
-  private usersUrl: string;
+  private hotelUrl: string;
 
   constructor(private http: HttpClient) {
-    this.usersUrl = 'http://localhost:8080/hotels';
+    this.hotelUrl = 'http://localhost:8080/hotels';
   }
   public findAll(): Observable<Hotel[]> {
-    return this.http.get<Hotel[]>(this.usersUrl+"/all");
+    return this.http.get<Hotel[]>(this.hotelUrl+"/all");
+  }
+  getHotelById(id: number): Observable<Hotel> {
+    return this.http.get<Hotel>(this.hotelUrl + "/" + id);
+  }
+  public delete(hotel: Hotel) {
+    return this.http.delete(this.hotelUrl + "/" + hotel.id);
   }
 
   save(hotel: Hotel) {
-    return this.http.post<Hotel>(this.usersUrl, hotel);
+    return this.http.post<Hotel>(this.hotelUrl, hotel);
+  }
+
+  edit(hotel: Hotel) {
+    return this.http.put<Hotel>(this.hotelUrl+ "/" + hotel.id, hotel);
   }
 }

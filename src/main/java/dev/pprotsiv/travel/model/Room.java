@@ -32,7 +32,7 @@ public class Room {
     private Hotel hotel;
 
     @JsonIgnore
-    @ManyToMany(mappedBy = "rooms")
+    @ManyToMany(mappedBy = "rooms",cascade = CascadeType.REMOVE)
     private Set<Order> orders = new HashSet<Order>();
 
     public Room() {

@@ -4,7 +4,7 @@
     <div class="card-body">
       <h5 class="card-title">{{hotel.name}}</h5>
       <p class="card-text">Hotel description</p>
-      <a href="#" class="btn btn-primary">Show prices</a>
+      <a href="/rooms/{{hotel.id}}/all" class="btn btn-primary">Show prices</a>
     </div>
     <ul class="list-group list-group-flush">
       <li class="list-group-item">{{hotel.country}}</li>
@@ -13,9 +13,9 @@
       <li class="list-group-item">{{hotel.houseNumber}}</li>
     </ul>
     <div class="card-body">
-      <a href="#" class="btn btn-info btn-sm">Edit</a>
-      <a href="#" class="btn btn-info btn-sm">Delete</a>
-      <a href="#" class="btn btn-info btn-sm">Add room</a>
+      <a class="btn btn-info btn-sm" (click)="updateHotel(hotel)">Edit</a>
+      <a class="btn btn-info btn-sm" (click)="deleteHotel(hotel)">Delete</a>
+      <a class="btn btn-info btn-sm" (click)="addRoom(hotel.id)" >Add room</a>
     </div>
   </div>
 </div>
