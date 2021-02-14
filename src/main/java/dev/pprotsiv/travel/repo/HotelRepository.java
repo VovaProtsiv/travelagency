@@ -9,11 +9,11 @@ import java.util.List;
 
 public interface HotelRepository extends JpaRepository<Hotel, Long> {
 
-   @Query("SELECT h.name as name, h.address.country as country, h.address.city as city," +
+   @Query("SELECT h.id as id, h.name as name, h.address.country as country, h.address.city as city," +
            "h.address.street as street, h.address.houseNumber as houseNumber from Hotel h WHERE h.id = ?1")
     HotelProjection findProjectionById(long id);
 
-    @Query("SELECT h.name as name, h.address.country as country, h.address.city as city," +
+    @Query("SELECT h.id as id, h.name as name, h.address.country as country, h.address.city as city," +
             "h.address.street as street, h.address.houseNumber as houseNumber from Hotel h")
     List<HotelProjection> findAllProjection();
 }
