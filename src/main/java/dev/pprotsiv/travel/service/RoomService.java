@@ -1,6 +1,7 @@
 package dev.pprotsiv.travel.service;
 
 import dev.pprotsiv.travel.model.Room;
+import dev.pprotsiv.travel.projection.RoomProjection;
 
 import java.util.List;
 
@@ -9,11 +10,14 @@ public interface RoomService {
 
     Room readById(long id);
 
+    RoomProjection readProjectionById(long id);
+
     Room update(Room room);
 
     void delete(long id);
 
     List<Room> getAll();
 
-    List<Room> getAllByHotelId(long id);
+    List<RoomProjection> getAllProjectionsByHotelId(long id);
+
 }
