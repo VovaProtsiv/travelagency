@@ -11,6 +11,7 @@ import { EditUserComponent } from './user/edit-user/edit-user.component';
 import {HotelService} from "./service/hotel-service";
 import {HotelListComponent} from "./hotel/hotel-list/hotel-list.component";
 import { HotelFormComponent } from './hotel/hotel-form/hotel-form.component';
+import { HotelEditComponent } from './hotel/hotel-edit/hotel-edit.component';
 
 @NgModule({
   declarations: [
@@ -19,7 +20,8 @@ import { HotelFormComponent } from './hotel/hotel-form/hotel-form.component';
     UserFormComponent,
     EditUserComponent,
     HotelListComponent,
-    HotelFormComponent
+    HotelFormComponent,
+    HotelEditComponent
   ],
   imports: [
     BrowserModule,
