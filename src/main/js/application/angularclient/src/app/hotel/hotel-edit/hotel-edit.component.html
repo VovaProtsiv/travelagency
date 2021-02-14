@@ -1,6 +1,6 @@
 <div class="col-md-6 user-container">
   <h2 class="text-center">Edit Hotel</h2>
-<form [formGroup]="editForm" (ngSubmit)="onSubmit()">
+<form [formGroup]="editForm" >
   <div class="form-group">
     <label>
       Id:
@@ -39,6 +39,6 @@
   </label>
   </div>
   <button class="btn btn-success" (click)="ngOnInit()">Cancel</button>
-  <button class="btn btn-success">Update</button>
+  <button class="btn btn-success" (click)="onSubmit()">Update</button>
 </form>
 </div>
