@@ -15,6 +15,7 @@ import { HotelEditComponent } from './hotel/hotel-edit/hotel-edit.component';
 import { RoomFormComponent } from './room/room-form/room-form.component';
 import { RoomListComponent } from './room/room-list/room-list.component';
 import { RoomEditComponent } from './room/room-edit/room-edit.component';
+import { OrderListComponent } from './order/order-list/order-list.component';
 
 @NgModule({
   declarations: [
@@ -27,7 +28,8 @@ import { RoomEditComponent } from './room/room-edit/room-edit.component';
     HotelEditComponent,
     RoomFormComponent,
     RoomListComponent,
-    RoomEditComponent
+    RoomEditComponent,
+    OrderListComponent
   ],
   imports: [
     BrowserModule,
