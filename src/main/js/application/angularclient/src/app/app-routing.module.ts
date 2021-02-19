@@ -9,6 +9,7 @@ import {HotelEditComponent} from "./hotel/hotel-edit/hotel-edit.component";
 import {RoomFormComponent} from "./room/room-form/room-form.component";
 import {RoomListComponent} from "./room/room-list/room-list.component";
 import {RoomEditComponent} from "./room/room-edit/room-edit.component";
+import {OrderListComponent} from "./order/order-list/order-list.component";
 
 const routes: Routes = [
   {path: 'users', component: UserListComponent},
@@ -19,7 +20,8 @@ const routes: Routes = [
   {path: 'hotel-edit', component: HotelEditComponent},
   {path: 'hotel/:id/add-room', component: RoomFormComponent},
   {path: 'rooms/:id/all', component: RoomListComponent},
-  {path: 'rooms/:hotelId/edit/:roomId', component: RoomEditComponent}
+  {path: 'rooms/:hotelId/edit/:roomId', component: RoomEditComponent},
+  {path: 'orders/:userId/all', component: OrderListComponent}
 ];
 
 @NgModule({
