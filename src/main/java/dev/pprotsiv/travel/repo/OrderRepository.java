@@ -10,11 +10,11 @@ import java.util.List;
 public interface OrderRepository extends JpaRepository<Order, Long> {
 
     @Query("SELECT o.id as id, o.checkIn as checkIn, o.checkOut as checkOut, o.client.id as userId," +
-            "o.state as state FROM Order o WHERE o.client.id =?1")
+            "o.state as state, o.hotel.id as hotelId, o.hotel.name as hotelName FROM Order o WHERE o.client.id =?1")
     List<OrderProjection> getAllOrderProjectionByUserId(long id);
 
 
-    @Query("SELECT o.id as id, o.checkIn as checkIn, o.checkOut as checkOut" +
+    @Query("SELECT o.id as id, o.checkIn as checkIn, o.checkOut as checkOut, o.hotel.id as hotelId, o.hotel.name as hotelName" +
             " FROM Order o WHERE o.id =?1")
     OrderProjection getProjectionById(long id);
 }
