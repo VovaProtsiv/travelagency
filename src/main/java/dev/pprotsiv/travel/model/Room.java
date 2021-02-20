@@ -32,12 +32,19 @@ public class Room {
     private Hotel hotel;
 
     @JsonIgnore
-    @ManyToMany(mappedBy = "rooms",cascade = CascadeType.REMOVE)
+    @ManyToMany(mappedBy = "rooms", cascade = CascadeType.REMOVE)
     private Set<Order> orders = new HashSet<Order>();
 
     public Room() {
     }
 
+    public Room(Long id, String name, Integer sleeps, Hotel hotel, Set<Order> orders) {
+        this.id = id;
+        this.name = name;
+        this.sleeps = sleeps;
+        this.hotel = hotel;
+        this.orders = orders;
+    }
 
     public Long getId() {
         return id;

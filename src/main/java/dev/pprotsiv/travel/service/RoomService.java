@@ -20,4 +20,5 @@ public interface RoomService {
 
     List<RoomProjection> getAllProjectionsByHotelId(long id);
 
+    List<RoomProjection> getProjectionsByOrderID(long id);
 }

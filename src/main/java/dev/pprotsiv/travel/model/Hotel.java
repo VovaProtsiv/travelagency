@@ -22,13 +22,17 @@ public class Hotel {
     @Column(name = "name", nullable = false)
     private String name;
 
-    @OneToOne(cascade=CascadeType.ALL)
-    @JoinColumn(name="addressid")
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "addressid")
     private Address address;
 
     @JsonIgnore
-    @OneToMany(cascade = CascadeType.REMOVE, orphanRemoval = true,mappedBy = "hotel")
+    @OneToMany(cascade = CascadeType.REMOVE, orphanRemoval = true, mappedBy = "hotel")
     private List<Room> rooms = new ArrayList<>();
+
+    @JsonIgnore
+    @OneToMany(mappedBy = "hotel", cascade = CascadeType.REMOVE)
+    private List<Order> orders = new ArrayList<Order>();
 
     public Hotel() {
     }
@@ -75,11 +79,28 @@ public class Hotel {
         this.rooms = rooms;
     }
 
-    public boolean addRoom (Room room){
+    public boolean addRoom(Room room) {
         return this.rooms.add(room);
     }
-    public boolean removeRoom(Room room){
-       return this.rooms.remove(room);
+
+    public boolean removeRoom(Room room) {
+        return this.rooms.remove(room);
+    }
+
+    public List<Order> getOrders() {
+        return orders;
+    }
+
+    public void setOrders(List<Order> orders) {
+        this.orders = orders;
+    }
+
+    public boolean addOrder(Order order) {
+        return this.orders.add(order);
+    }
+
+    public boolean removeOrder(Order order) {
+        return this.rooms.remove(order);
     }
 
     @Override

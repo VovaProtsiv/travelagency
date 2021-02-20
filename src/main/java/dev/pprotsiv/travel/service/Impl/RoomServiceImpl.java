@@ -66,5 +66,11 @@ public class RoomServiceImpl implements RoomService {
         return rooms.isEmpty() ? new ArrayList<>() : rooms;
     }
 
+    @Override
+    public List<RoomProjection> getProjectionsByOrderID(long id) {
+        List<RoomProjection> rooms = roomRepository.findProjectionsByOrderId(id);
+        return rooms.isEmpty() ? new ArrayList<>() : rooms;
+    }
+
 
 }

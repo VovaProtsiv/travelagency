@@ -32,4 +32,8 @@ export class UserListComponent implements OnInit {
     window.localStorage.setItem("editUserId", user.id.toString());
     this.router.navigate(['edit-user']);
   }
+
+  getOrders(user: User) {
+    this.router.navigate(['orders/'+user.id+'/all']);
+  }
 }

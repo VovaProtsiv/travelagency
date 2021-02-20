@@ -1,0 +1,35 @@
+<div class="card my-5">
+  <div class="card-body">
+    <table class="table table-bordered">
+      <thead class="thead-light">
+      <tr>
+        <th scope="col">Order ID</th>
+        <th scope="col">Check-in</th>
+        <th scope="col">Check-ou</th>
+        <th scope="col">State</th>
+        <th scope="col">Total price</th>
+        <th scope="col">Rooms</th>
+        <th colspan="2">Operations</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr *ngFor="let order of orders">
+        <td>{{ order.id }}</td>
+        <td>{{ order.checkIn }}</td>
+        <td>{{ order.checkOut }}</td>
+        <td>{{ order.state }}</td>
+        <td>****$</td>
+        <td>
+          <button  class="btn btn-success" (click)="getRooms(order)">{{order.hotelName}}</button>
+        </td>
+        <td>
+          <button class="btn btn-success" (click)="updateOrder(order)">Edit</button>
+        </td>
+        <td>
+          <button class="btn btn-success" (click)="deleteOrder(order)">Delete</button>
+        </td>
+      </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
