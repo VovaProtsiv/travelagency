@@ -3,18 +3,23 @@ import {HttpClient} from "@angular/common/http";
 import {Observable} from "rxjs";
 
 import {Order} from "../model/order";
+import {User} from "../model/user";
 
 @Injectable({
   providedIn: 'root'
 })
 export class OrderService {
-  private readonly usersUrl: string;
+  private readonly orderUrl: string;
 
   constructor(private http: HttpClient) {
-    this.usersUrl = 'http://localhost:8080/users'
+    this.orderUrl = 'http://localhost:8080/orders'
   }
 
   public findByUserId(userId: string): Observable<Order[]> {
-    return this.http.get<Order[]>(this.usersUrl + '/' +userId+'/orders');
+    return this.http.get<Order[]>(this.orderUrl + '/' +userId+'/all');
+  }
+
+  public delete(order: Order) {
+    return this.http.delete(this.orderUrl + "/remove/" + order.id);
   }
 }
