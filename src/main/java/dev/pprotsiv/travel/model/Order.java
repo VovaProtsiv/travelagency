@@ -46,12 +46,17 @@ public class Order {
         @ManyToOne(fetch = FetchType.LAZY)
         private User client;
 
-        public Order(LocalDate checkIn, LocalDate checkOut, Set<Room> rooms, State state, User client) {
+        @JsonIgnore
+        @ManyToOne(fetch = FetchType.LAZY)
+        private Hotel hotel;
+
+        public Order(LocalDate checkIn, LocalDate checkOut, Set<Room> rooms, State state, User client, Hotel hotel) {
                 this.checkIn = checkIn;
                 this.checkOut = checkOut;
                 this.rooms = rooms;
                 this.state = state;
                 this.client = client;
+                this.hotel = hotel;
         }
 
         public Order() {
@@ -103,6 +108,14 @@ public class Order {
 
         public void setState(State state) {
                 this.state = state;
+        }
+
+        public Hotel getHotel() {
+                return hotel;
+        }
+
+        public void setHotel(Hotel hotel) {
+                this.hotel = hotel;
         }
 
         @Override
