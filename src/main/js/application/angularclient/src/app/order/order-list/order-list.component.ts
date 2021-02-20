@@ -2,6 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {Order} from "../../model/order";
 import {ActivatedRoute, Router} from "@angular/router";
 import {OrderService} from "../../service/order-service";
+import {HotelService} from "../../service/hotel-service";
 
 @Component({
   selector: 'app-order-list',
@@ -12,12 +13,13 @@ export class OrderListComponent implements OnInit {
   orders: Order[];
 
 
-  constructor(private route: ActivatedRoute, private router: Router, private orderService: OrderService) {
+  constructor(private route: ActivatedRoute, private router: Router, private orderService: OrderService, private hotelService: HotelService) {
   }
 
   ngOnInit(): void {
     let userId = this.route.snapshot.paramMap.get('userId');
     this.orderService.findByUserId(userId).subscribe(data => this.orders = data);
+
   }
 
   updateOrder(order: Order) {
@@ -25,10 +27,14 @@ export class OrderListComponent implements OnInit {
   }
 
   deleteOrder(order: Order) {
-
+    this.orderService.delete(order).subscribe(result => {
+      this.orders = this.orders.filter(h => h != order);
+    });
   }
 
   getRooms(order: Order) {
 
   }
+
+
 }

@@ -19,9 +19,15 @@
         <td>{{ order.checkOut }}</td>
         <td>{{ order.state }}</td>
         <td>****$</td>
-        <td><button class="btn btn-success"(click)="getRooms(order)" >Rooms</button></td>
-        <td><button class="btn btn-success"(click)="updateOrder(order)" >Edit</button></td>
-        <td><button class="btn btn-success" (click)="deleteOrder(order)">Delete</button></td>
+        <td>
+          <button  class="btn btn-success" (click)="getRooms(order)">{{order.hotelName}}</button>
+        </td>
+        <td>
+          <button class="btn btn-success" (click)="updateOrder(order)">Edit</button>
+        </td>
+        <td>
+          <button class="btn btn-success" (click)="deleteOrder(order)">Delete</button>
+        </td>
       </tr>
       </tbody>
     </table>
