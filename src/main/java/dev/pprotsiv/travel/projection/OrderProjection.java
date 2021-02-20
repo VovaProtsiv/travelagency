@@ -11,6 +11,10 @@ public interface OrderProjection {
 
     String getUserId();
 
+    String getHotelId();
+
+    String getHotelName();
+
     String getState();
 
 
