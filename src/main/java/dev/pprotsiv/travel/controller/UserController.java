@@ -19,12 +19,11 @@ import java.util.List;
 public class UserController {
 
     private final UserService userService;
-    private final OrderService orderService;
+
 
     @Autowired
-    public UserController(UserService userService, OrderService orderService) {
+    public UserController(UserService userService) {
         this.userService = userService;
-        this.orderService = orderService;
 
     }
 
@@ -33,10 +32,6 @@ public class UserController {
         return ResponseEntity.status(HttpStatus.OK).body(userService.getAllProjections());
     }
 
-    @GetMapping("/{id}/orders")
-    public ResponseEntity<List<OrderProjection>> getOrders(@PathVariable long id) {
-        return ResponseEntity.status(HttpStatus.OK).body(orderService.getProjectionsByUserId(id));
-    }
 
     @GetMapping("/{id}")
     public ResponseEntity<UserProjection> getUserById(@PathVariable long id) {
