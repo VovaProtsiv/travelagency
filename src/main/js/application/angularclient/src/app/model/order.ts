@@ -4,4 +4,6 @@ export class Order {
   checkIn: Date;
   checkOut: Date;
   userId: number;
+  hotelId: number;
+  hotelName: string;
 }
