@@ -16,7 +16,7 @@ public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
-    
+
     @NotBlank(message = "The 'name' cannot be empty")
     @Column(name = "name", nullable = false)
     private final String name;
@@ -26,7 +26,7 @@ public class User {
     private final String email;
 
     @JsonIgnore
-    @OneToMany(mappedBy = "client",cascade = CascadeType.REMOVE)
+    @OneToMany(mappedBy = "client", cascade = CascadeType.REMOVE)
     private List<Order> orders = new ArrayList<Order>();
 
     public User() {
@@ -37,6 +37,14 @@ public class User {
     public User(String name, String email) {
         this.name = name;
         this.email = email;
+    }
+
+    public boolean addOrder(Order order) {
+        return this.orders.add(order);
+    }
+
+    public boolean removeOrder(Order order) {
+        return this.orders.remove(order);
     }
 
     public long getId() {
