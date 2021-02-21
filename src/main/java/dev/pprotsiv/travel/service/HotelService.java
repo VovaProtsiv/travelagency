@@ -12,4 +12,6 @@ public interface HotelService {
     Hotel update(Hotel hotel);
     void delete(long id);
     List<HotelProjection> getAllProjections();
+    List<HotelProjection> getAllProjections(String name);
+
 }

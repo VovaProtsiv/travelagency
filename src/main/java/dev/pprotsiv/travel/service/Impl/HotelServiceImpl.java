@@ -63,4 +63,10 @@ public class HotelServiceImpl implements HotelService {
         return hotels.isEmpty() ? new ArrayList<>() : hotels;
     }
 
-  }
+    @Override
+    public List<HotelProjection> getAllProjections(String name) {
+        List<HotelProjection> hotels = hotelRepository.findAllProjections(name);
+        return hotels.isEmpty() ? new ArrayList<>() : hotels;
+    }
+
+}
