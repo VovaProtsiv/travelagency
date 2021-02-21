@@ -18,6 +18,9 @@ export class HotelService {
   public findAll(): Observable<Hotel[]> {
     return this.http.get<Hotel[]>(this.hotelUrl + "/all");
   }
+  public findHotelByName(name:string): Observable<Hotel[]> {
+    return this.http.get<Hotel[]>(this.hotelUrl + "/search?name="+name);
+  }
 
   getHotelById(id: number): Observable<Hotel> {
     return this.http.get<Hotel>(this.hotelUrl + "/" + id);
