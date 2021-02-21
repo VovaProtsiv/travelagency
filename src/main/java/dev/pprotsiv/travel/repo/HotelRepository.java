@@ -16,4 +16,10 @@ public interface HotelRepository extends JpaRepository<Hotel, Long> {
     @Query("SELECT h.id as id, h.name as name, h.address.country as country, h.address.city as city," +
             "h.address.street as street, h.address.houseNumber as houseNumber from Hotel h")
     List<HotelProjection> findAllProjection();
+
+    @Query("SELECT h.id as id, h.name as name, h.address.country as country, h.address.city as city," +
+            " h.address.street as street, h.address.houseNumber as houseNumber from Hotel h " +
+            "where concat(h.name,' ', h.address.city) "
+            + "like concat('%',:name,'%') ")
+    List<HotelProjection> findAllProjections(String name);
 }
