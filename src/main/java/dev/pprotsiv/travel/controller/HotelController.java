@@ -28,7 +28,11 @@ public class HotelController {
         return ResponseEntity.status(HttpStatus.OK)
                 .body(hotelService.getAllProjections());
     }
-
+    @GetMapping("/search")
+    public ResponseEntity<List<HotelProjection>> findHotels(@RequestParam String name) {
+        return ResponseEntity.status(HttpStatus.OK)
+                .body(hotelService.getAllProjections(name));
+    }
     @GetMapping("/{id}")
     public ResponseEntity<HotelProjection> getUserById(@PathVariable long id) {
         return ResponseEntity.status(HttpStatus.OK)

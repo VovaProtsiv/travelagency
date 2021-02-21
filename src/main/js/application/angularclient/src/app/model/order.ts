@@ -6,4 +6,5 @@ export class Order {
   userId: number;
   hotelId: number;
   hotelName: string;
+  rooms:string[];
 }

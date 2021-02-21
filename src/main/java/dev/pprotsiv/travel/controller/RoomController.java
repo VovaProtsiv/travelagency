@@ -28,6 +28,7 @@ public class RoomController {
         return ResponseEntity.status(HttpStatus.OK).body(roomService.getAllProjectionsByHotelId(id));
     }
 
+
     @GetMapping("/{room_id}")
     public ResponseEntity<RoomProjection> getRoom(@PathVariable long room_id) {
         return ResponseEntity.status(HttpStatus.OK).body(roomService.readProjectionById(room_id));

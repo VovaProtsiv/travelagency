@@ -18,8 +18,8 @@ export class RoomService {
     return this.http.post<Room>(this.roomUrl + '/' + room.hotelId + '/add', room);
   }
 
-  findAll(roomId: string): Observable<Room[]> {
-    return this.http.get<Room[]>(this.roomUrl + '/' + roomId + '/all');
+  findAll(hotelId: string): Observable<Room[]> {
+    return this.http.get<Room[]>(this.roomUrl + '/' + hotelId + '/all');
   }
 
   getRoom(roomId: number): Observable<Room> {
