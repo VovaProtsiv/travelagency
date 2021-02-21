@@ -10,6 +10,8 @@ import {RoomFormComponent} from "./room/room-form/room-form.component";
 import {RoomListComponent} from "./room/room-list/room-list.component";
 import {RoomEditComponent} from "./room/room-edit/room-edit.component";
 import {OrderListComponent} from "./order/order-list/order-list.component";
+import {HomeComponent} from "./client/home/home.component";
+import {ClientRoomListComponent} from "./client/client-room-list/client-room-list.component";
 
 const routes: Routes = [
   {path: 'users', component: UserListComponent},
@@ -21,6 +23,8 @@ const routes: Routes = [
   {path: 'hotel/:id/add-room', component: RoomFormComponent},
   {path: 'rooms/:id/all', component: RoomListComponent},
   {path: 'rooms/:hotelId/edit/:roomId', component: RoomEditComponent},
+  {path: 'home', component: HomeComponent},
+  {path: 'home/hotel/:hotelId', component: ClientRoomListComponent},
   {path: 'orders/:userId/all', component: OrderListComponent}
 ];
 
