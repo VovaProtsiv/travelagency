@@ -1,7 +1,7 @@
 package dev.pprotsiv.travel.security.service;
 
 import dev.pprotsiv.travel.model.User;
-import dev.pprotsiv.travel.repo.UserRepository;
+import dev.pprotsiv.travel.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -14,13 +14,12 @@ import org.springframework.transaction.annotation.Transactional;
 @Service
 public class UserDetailsServiceImpl implements UserDetailsService {
     @Autowired
-    UserRepository userRepository;
+    UserService userService;
 
     @Override
     @Transactional
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        User user = userRepository.findByUsername(username)
-                .orElseThrow(() -> new UsernameNotFoundException("User Not Found with username: " + username));
+        User user = userService.findByUsername(username);
 
         return UserDetailsImpl.build(user);
     }
