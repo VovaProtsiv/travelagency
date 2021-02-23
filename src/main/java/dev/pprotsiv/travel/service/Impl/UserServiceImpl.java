@@ -5,6 +5,7 @@ import dev.pprotsiv.travel.model.User;
 import dev.pprotsiv.travel.projection.UserProjection;
 import dev.pprotsiv.travel.repo.UserRepository;
 import dev.pprotsiv.travel.service.UserService;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
 import javax.persistence.EntityNotFoundException;
@@ -62,6 +63,12 @@ public class UserServiceImpl implements UserService {
     public List<UserProjection> getAllProjections() {
         List<UserProjection> allUsers = userRepository.getAllProjections();
         return allUsers.isEmpty() ? new ArrayList<>() : allUsers;
+    }
+
+    @Override
+    public User findByUsername(String username) {
+        return userRepository.findByUsername(username)
+                .orElseThrow(() -> new UsernameNotFoundException("User Not Found with username: " + username));
     }
 
 
