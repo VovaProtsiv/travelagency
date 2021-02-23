@@ -4,6 +4,7 @@ import dev.pprotsiv.travel.model.User;
 import dev.pprotsiv.travel.projection.UserProjection;
 
 import java.util.List;
+import java.util.Optional;
 
 public interface UserService {
     User create(User user);
@@ -12,4 +13,6 @@ public interface UserService {
     User update(User user);
     void delete(long id);
     List<UserProjection> getAllProjections();
+
+   User findByUsername(String username);
 }
