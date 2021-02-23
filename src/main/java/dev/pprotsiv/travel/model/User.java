@@ -39,6 +39,11 @@ public class User {
     @OneToMany(mappedBy = "client", cascade = CascadeType.REMOVE)
     private List<Order> orders = new ArrayList<Order>();
 
+    public User(String username, String email, String password) {
+        this.username = username;
+        this.email = email;
+        this.password = password;
+    }
 
 
     public boolean addOrder(Order order) {
