@@ -12,6 +12,12 @@ import {RoomEditComponent} from "./room/room-edit/room-edit.component";
 import {OrderListComponent} from "./order/order-list/order-list.component";
 import {HomeComponent} from "./client/home/home.component";
 import {ClientRoomListComponent} from "./client/client-room-list/client-room-list.component";
+import {LoginComponent} from "./login/login.component";
+import {RegisterComponent} from "./register/register.component";
+import {ProfileComponent} from "./profile/profile.component";
+import {BoardModeratorComponent} from "./board-moderator/board-moderator.component";
+import {BoardAdminComponent} from "./board-admin/board-admin.component";
+import {BoardUserComponent} from "./board-user/board-user.component";
 
 const routes: Routes = [
   {path: 'users', component: UserListComponent},
@@ -25,7 +31,14 @@ const routes: Routes = [
   {path: 'rooms/:hotelId/edit/:roomId', component: RoomEditComponent},
   {path: 'home', component: HomeComponent},
   {path: 'home/hotel/:hotelId', component: ClientRoomListComponent},
-  {path: 'orders/:userId/all', component: OrderListComponent}
+  {path: 'orders/:userId/all', component: OrderListComponent},
+  {path: 'login', component: LoginComponent},
+  { path: 'register', component: RegisterComponent },
+  { path: 'profile', component: ProfileComponent },
+  { path: 'user', component: BoardUserComponent },
+  { path: 'mod', component: BoardModeratorComponent },
+  { path: 'admin', component: BoardAdminComponent },
+  { path: '', redirectTo: 'home', pathMatch: 'full' }
 ];
 
 @NgModule({

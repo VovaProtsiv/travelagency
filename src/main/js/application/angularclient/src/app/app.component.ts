@@ -1,4 +1,9 @@
-import { Component } from '@angular/core';
+import {Component} from '@angular/core';
+import {HttpClient} from "@angular/common/http";
+import {Router} from "@angular/router";
+import {AuthService} from "./service/auth-service";
+import {TokenStorage} from "./service/token-storage";
+
 
 @Component({
   selector: 'app-root',
@@ -7,9 +12,30 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
 
-  title: string;
+  private roles: string[];
+  isLoggedIn = false;
+  showAdminBoard = false;
+  showModeratorBoard = false;
+  username: string;
 
-  constructor() {
-    this.title = 'Travel Agency';
+  constructor(private tokenStorageService: TokenStorage) { }
+
+  ngOnInit(): void {
+    this.isLoggedIn = !!this.tokenStorageService.getToken();
+
+    if (this.isLoggedIn) {
+      const user = this.tokenStorageService.getUser();
+      this.roles = user.roles;
+
+      this.showAdminBoard = this.roles.includes('ROLE_ADMIN');
+      this.showModeratorBoard = this.roles.includes('ROLE_MODERATOR');
+
+      this.username = user.username;
+    }
+  }
+
+  logout(): void {
+    this.tokenStorageService.signOut();
+    window.location.reload();
   }
 }
