@@ -12,10 +12,10 @@ import java.util.Optional;
 @Repository
 public interface UserRepository extends JpaRepository<User,Long> {
 
-    @Query("SELECT u.id as id, u.name as name, u.email as email FROM User u")
+    @Query("SELECT u.id as id, u.username as name, u.email as email FROM User u")
     List<UserProjection> getAllProjections();
 
-    @Query("SELECT u.id as id, u.name as name, u.email as email FROM User u WHERE u.id = ?1")
+    @Query("SELECT u.id as id, u.username as name, u.email as email FROM User u WHERE u.id = ?1")
     UserProjection findProjectionById(long id);
 
     Optional<User> findByUsername(String username);
