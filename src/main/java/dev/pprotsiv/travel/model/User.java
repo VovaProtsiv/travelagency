@@ -45,6 +45,8 @@ public class User {
         this.password = password;
     }
 
+    public User() {
+    }
 
     public boolean addOrder(Order order) {
         return this.orders.add(order);
