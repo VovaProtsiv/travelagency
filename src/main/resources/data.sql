@@ -1,6 +1,6 @@
-insert into users (email, username, id) values ('ivan@gmail.com', 'Ivan', 1000);
-insert into users (email, username, id) values ('Vova@gmail.com', 'Vova', 1001);
-insert into users (email, username, id) values ('petro@ukr.net', 'Petro', 1002);
+insert into users (email, username, id, password) values ('ivan@gmail.com', 'Ivan', 1000,'$2a$10$1.twDMYM8n3FTL2aEsQN7uPf59jAW6u6B.V2v1bFtBEDqmXre.UpK');
+insert into users (email, username, id, password) values ('Vova@gmail.com', 'Vova', 1001,'$2a$10$YPrHZfCSI8gU7WJvnV3cHON0BqhaRJ6YrjUBnRFhczUQca6T25ssm');
+insert into users (email, username, id, password) values ('petro@ukr.net', 'Petro', 1002,'$2a$10$V5Q.KNWFoiQ6kkmz9wGXD.cjnRRIfLPy4XGGoCviRznKq4exCiW/.');
 
 insert into addresses (id,city, country, house_number, street) values (1000,'Lviv','UA','12-b','Soborna');
 insert into addresses (id,city, country, house_number, street) values (1001,'Kyiv','UA','233/2','Teligy');
