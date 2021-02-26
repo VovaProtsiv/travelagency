@@ -18,6 +18,10 @@ insert into user_roles(user_id, role_id)
 values (1001, 1001);
 insert into user_roles(user_id, role_id)
 values (1002, 1002);
+insert into user_roles(user_id, role_id)
+values (1002, 1001);
+insert into user_roles(user_id, role_id)
+values (1002, 1000);
 
 insert into addresses (id, city, country, house_number, street)
 values (1000, 'Lviv', 'UA', '12-b', 'Soborna');
