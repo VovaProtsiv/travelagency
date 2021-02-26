@@ -1,0 +1,46 @@
+<div class="container">
+  <div class="card flex-row flex-wrap">
+    <div class="card-header border-0">
+      <h4 class="card-title">{{hotel.name}}</h4>
+      <p class="card-text">{{hotel.street}} street {{hotel.houseNumber}}, {{hotel.city}}, {{hotel.country }}</p>
+      <img src="//placehold.it/200" alt="">
+    </div>
+    <div class="card-block px-2">
+      <p class="card-text">Hotel describe</p>
+    </div>
+  </div>
+
+</div>
+<div class="card my-5">
+  <div class="card-body">
+
+    <table class="table table-bordered">
+
+      <thead class="thead-light">
+      <tr>
+        <th scope="col">Sleeps</th>
+        <th scope="col">Room type</th>
+        <th scope="col">Price</th>
+        <th id="operation" colspan="2">Operations</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr *ngFor="let room of rooms">
+        <td>{{ room.sleeps }}</td>
+        <td>{{ room.name }}</td>
+        <td>{{hotel.price}} $</td>
+        <td id="edit">
+          <button class="btn btn-info" (click)="updateRoom(room)">Edit</button>
+        </td>
+        <td id="delete">
+          <button class="btn btn-outline-danger" (click)="deleteRoom(room)">Delete</button>
+        </td>
+      </tr>
+      </tbody>
+    </table>
+    <td id="add">
+      <button class="btn btn-info" (click)="addRoom(hotel.id)">Add room</button>
+    </td>
+
+  </div>
+</div>
