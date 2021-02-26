@@ -25,6 +25,6 @@ export class RoomFormComponent implements OnInit {
   }
 
   gotoRoomList() {
-    this.router.navigate(['/hotels']);
+    this.router.navigate(['/hotel/'+this.room.hotelId]);
   }
 }

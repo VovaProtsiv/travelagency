@@ -4,5 +4,6 @@ export class Hotel {
   country: string;
   city: string;
   street: string;
+  price: number;
   houseNumber: string;
 }
