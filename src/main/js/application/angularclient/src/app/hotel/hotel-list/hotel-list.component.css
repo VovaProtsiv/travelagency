@@ -1,0 +1,6 @@
+th#operation {
+  text-align: center;
+}
+td#add, td#delete, td#edit{
+  width: 5%;
+}

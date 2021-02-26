@@ -1,21 +1,28 @@
+<div class="card my-5">
+  <div class="card-body">
+    <table class="table table-bordered">
+      <thead class="thead-light">
+      <tr>
+        <th scope="col">№</th>
 
-<div class="card-deck">
-  <div class="card mb-4" *ngFor="let hotel of hotels">
-    <div class="card-body">
-      <h5 class="card-title">{{hotel.name}}</h5>
-      <p class="card-text">Hotel description</p>
-      <a href="/rooms/{{hotel.id}}/all" class="btn btn-primary">Show prices</a>
-    </div>
-    <ul class="list-group list-group-flush">
-      <li class="list-group-item">{{hotel.country}}</li>
-      <li class="list-group-item">{{hotel.city}}</li>
-      <li class="list-group-item">{{hotel.street}}</li>
-      <li class="list-group-item">{{hotel.houseNumber}}</li>
-    </ul>
-    <div class="card-body">
-      <a class="btn btn-info btn-sm" (click)="updateHotel(hotel)">Edit</a>
-      <a class="btn btn-info btn-sm" (click)="deleteHotel(hotel)">Delete</a>
-      <a class="btn btn-info btn-sm" (click)="addRoom(hotel.id)" >Add room</a>
-    </div>
+        <th scope="col">Name</th>
+        <th scope="col">Address</th>
+        <th id = "operation" colspan="2">Operations</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr *ngFor="let hotel of hotels; index as i">
+        <td>{{ i + 1 }}</td>
+        <td><a href="/hotel/{{hotel.id}}" class="nav-link">{{hotel.name }}</a></td>
+        <td>{{hotel.street}} street {{hotel.houseNumber}}, {{hotel.city}}, {{hotel.country }}</td>
+        <td id="edit">
+          <button class="btn btn-info" (click)="updateHotel(hotel)">Edit</button>
+        </td>
+        <td id="delete">
+          <button class="btn btn-outline-danger" (click)="deleteHotel(hotel)">Delete</button>
+        </td>
+      </tr>
+      </tbody>
+    </table>
   </div>
 </div>

@@ -21,7 +21,7 @@ export class HotelListComponent implements OnInit {
   }
 
   deleteHotel(hotel: Hotel) {
-    this.hotelService.delete(hotel).subscribe(result=> {
+    this.hotelService.delete(hotel).subscribe(result => {
       this.hotels = this.hotels.filter(h => h != hotel);
     });
   }
@@ -32,9 +32,4 @@ export class HotelListComponent implements OnInit {
     this.router.navigate(['hotel-edit']);
   }
 
-  addRoom(id: string) {
-    window.localStorage.removeItem("HotelIdAddRoom");
-    window.localStorage.setItem("HotelIdAddRoom", id.toString());
-    this.router.navigate(['hotel/'+id+'/add-room']);
-  }
 }
