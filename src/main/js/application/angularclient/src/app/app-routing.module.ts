@@ -1,5 +1,5 @@
 import {NgModule} from '@angular/core';
-import {Routes, RouterModule} from '@angular/router';
+import {RouterModule, Routes} from '@angular/router';
 import {UserListComponent} from './user/user-list/user-list.component';
 import {UserFormComponent} from './user/user-form/user-form.component';
 import {EditUserComponent} from "./user/edit-user/edit-user.component";
@@ -15,9 +15,7 @@ import {ClientRoomListComponent} from "./client/client-room-list/client-room-lis
 import {LoginComponent} from "./login/login.component";
 import {RegisterComponent} from "./register/register.component";
 import {ProfileComponent} from "./profile/profile.component";
-import {BoardModeratorComponent} from "./board-moderator/board-moderator.component";
-import {BoardAdminComponent} from "./board-admin/board-admin.component";
-import {BoardUserComponent} from "./board-user/board-user.component";
+
 
 const routes: Routes = [
   {path: 'users', component: UserListComponent},
@@ -33,12 +31,9 @@ const routes: Routes = [
   {path: 'home/hotel/:hotelId', component: ClientRoomListComponent},
   {path: 'orders/:userId/all', component: OrderListComponent},
   {path: 'login', component: LoginComponent},
-  { path: 'register', component: RegisterComponent },
-  { path: 'profile', component: ProfileComponent },
-  { path: 'user', component: BoardUserComponent },
-  { path: 'mod', component: BoardModeratorComponent },
-  { path: 'admin', component: BoardAdminComponent },
-  { path: '', redirectTo: 'home', pathMatch: 'full' }
+  {path: 'register', component: RegisterComponent},
+  {path: 'profile', component: ProfileComponent},
+  {path: '', redirectTo: 'home', pathMatch: 'full'}
 ];
 
 @NgModule({

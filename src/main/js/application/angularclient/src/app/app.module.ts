@@ -21,9 +21,6 @@ import {ClientRoomListComponent} from './client/client-room-list/client-room-lis
 import {LoginComponent} from './login/login.component';
 import {RegisterComponent} from './register/register.component';
 import {ProfileComponent} from './profile/profile.component';
-import {BoardUserComponent} from './board-user/board-user.component';
-import {BoardModeratorComponent} from './board-moderator/board-moderator.component';
-import {BoardAdminComponent} from './board-admin/board-admin.component';
 import {authInterceptorProviders} from "./service/auth.interceptor";
 
 
@@ -45,10 +42,6 @@ import {authInterceptorProviders} from "./service/auth.interceptor";
     LoginComponent,
     RegisterComponent,
     ProfileComponent,
-    BoardUserComponent,
-    BoardModeratorComponent,
-    BoardAdminComponent,
-
   ],
   imports: [
     BrowserModule,
