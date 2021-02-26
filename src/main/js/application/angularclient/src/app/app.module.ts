@@ -22,6 +22,7 @@ import {LoginComponent} from './login/login.component';
 import {RegisterComponent} from './register/register.component';
 import {ProfileComponent} from './profile/profile.component';
 import {authInterceptorProviders} from "./service/auth.interceptor";
+import { HotelAdminComponent } from './hotel/hotel-admin/hotel-admin.component';
 
 
 @NgModule({
@@ -42,6 +43,7 @@ import {authInterceptorProviders} from "./service/auth.interceptor";
     LoginComponent,
     RegisterComponent,
     ProfileComponent,
+    HotelAdminComponent,
   ],
   imports: [
     BrowserModule,
