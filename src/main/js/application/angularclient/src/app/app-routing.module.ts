@@ -15,6 +15,7 @@ import {ClientRoomListComponent} from "./client/client-room-list/client-room-lis
 import {LoginComponent} from "./login/login.component";
 import {RegisterComponent} from "./register/register.component";
 import {ProfileComponent} from "./profile/profile.component";
+import {HotelAdminComponent} from "./hotel/hotel-admin/hotel-admin.component";
 
 
 const routes: Routes = [
@@ -25,6 +26,7 @@ const routes: Routes = [
   {path: 'add-hotel', component: HotelFormComponent},
   {path: 'hotel-edit', component: HotelEditComponent},
   {path: 'hotel/:id/add-room', component: RoomFormComponent},
+  {path: 'hotel/:hotelId', component: HotelAdminComponent},
   {path: 'rooms/:id/all', component: RoomListComponent},
   {path: 'rooms/:hotelId/edit/:roomId', component: RoomEditComponent},
   {path: 'home', component: HomeComponent},

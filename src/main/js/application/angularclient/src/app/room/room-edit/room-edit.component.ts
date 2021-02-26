@@ -40,6 +40,6 @@ export class RoomEditComponent implements OnInit {
   }
 
   gotoRoomList() {
-   this.router.navigate(['/rooms/'+this.route.snapshot.paramMap.get('hotelId')+'/all']);
+   this.router.navigate(['/hotel/'+this.route.snapshot.paramMap.get('hotelId')]);
   }
 }
