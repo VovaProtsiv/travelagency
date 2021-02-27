@@ -2,6 +2,7 @@ import {Injectable} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 import {User} from '../model/user';
 import {Observable} from 'rxjs';
+import {Role} from "../model/role";
 
 @Injectable()
 export class UserService {
@@ -15,7 +16,12 @@ export class UserService {
   public findAll(): Observable<User[]> {
     return this.http.get<User[]>(this.usersUrl);
   }
-
+  public findAllRoles(): Observable<Role[]> {
+    return this.http.get<Role[]>(this.usersUrl+'/roles');
+  }
+  findAllRolesByUserId(id: string):Observable<Role[]> {
+    return this.http.get<Role[]>(this.usersUrl+'/roles');
+  }
   public save(user: User) {
     return this.http.post<User>(this.usersUrl, user);
   }
@@ -32,6 +38,8 @@ export class UserService {
   getUserById(id: number): Observable<User> {
     return this.http.get<User>(this.usersUrl + "/" + id);
   }
+
+
 }
 
 
