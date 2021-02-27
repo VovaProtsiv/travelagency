@@ -2,6 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {User} from '../../model/user';
 import {UserService} from '../../service/user.service';
 import {ActivatedRoute, Router} from "@angular/router";
+import {Role} from "../../model/role";
 
 @Component({
   selector: 'app-user-list',
@@ -12,6 +13,7 @@ export class UserListComponent implements OnInit {
 
   users: User[];
 
+
   constructor(private route: ActivatedRoute, private router: Router, private userService: UserService) {
   }
 
@@ -19,6 +21,7 @@ export class UserListComponent implements OnInit {
     this.userService.findAll().subscribe(data => {
       this.users = data;
     });
+
   }
 
   deleteUser(user: User) {
@@ -34,6 +37,7 @@ export class UserListComponent implements OnInit {
   }
 
   getOrders(user: User) {
-    this.router.navigate(['orders/'+user.id+'/all']);
+    this.router.navigate(['orders/' + user.id + '/all']);
   }
+
 }
