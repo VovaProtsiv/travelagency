@@ -46,9 +46,17 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    public UserDto getDto(long id) {
+        return UserDtoMapper.convertToDto(readById(id));
+    }
+
+    @Override
     public User update(User user) {
         if (user != null) {
-            readById(user.getId());
+            User readById = readById(user.getId());
+            if (user.getPassword()==null){
+                user.setPassword(readById.getPassword());
+            }
             return userRepository.save(user);
         }
         throw new NullEntityReferenceException("User cannot be 'null'");

@@ -13,6 +13,8 @@ public interface UserService {
 
     UserProjection getProjection(long id);
 
+    UserDto getDto(long id);
+
     User update(User user);
 
     void delete(long id);
