@@ -14,7 +14,7 @@ import java.util.Optional;
 public interface RoleRepository extends JpaRepository<Role, Long> {
     Optional<Role> findByName(ERole name);
 
-    @Query("SELECT name as name FROM Role")
+    @Query("SELECT id as id, name as name FROM Role")
     List<RoleProjection> findAllProjections();
 
     @Query(value = "SELECT r.name as name FROM roles r INNER JOIN user_roles u ON u.role_id = r.id AND u.user_id = ?1",nativeQuery = true)
