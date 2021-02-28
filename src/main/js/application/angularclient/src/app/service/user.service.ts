@@ -1,5 +1,5 @@
 import {Injectable} from '@angular/core';
-import {HttpClient} from '@angular/common/http';
+import {HttpClient, HttpResponse} from '@angular/common/http';
 import {User} from '../model/user';
 import {Observable} from 'rxjs';
 import {Role} from "../model/role";
@@ -9,6 +9,7 @@ export class UserService {
 
   private usersUrl: string;
 
+
   constructor(private http: HttpClient) {
     this.usersUrl = 'http://localhost:8080/users';
   }
@@ -16,12 +17,11 @@ export class UserService {
   public findAll(): Observable<User[]> {
     return this.http.get<User[]>(this.usersUrl);
   }
+
   public findAllRoles(): Observable<Role[]> {
-    return this.http.get<Role[]>(this.usersUrl+'/roles');
+    return this.http.get<Role[]>(this.usersUrl + '/roles');
   }
-  findAllRolesByUserId(id: string):Observable<Role[]> {
-    return this.http.get<Role[]>(this.usersUrl+'/roles');
-  }
+
   public save(user: User) {
     return this.http.post<User>(this.usersUrl, user);
   }
@@ -39,6 +39,9 @@ export class UserService {
     return this.http.get<User>(this.usersUrl + "/" + id);
   }
 
+  findAllRolesByUserId(id: string) {
+
+  }
 
 }
 
