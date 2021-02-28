@@ -43,8 +43,8 @@ public class UserController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<UserProjection> getUserById(@PathVariable long id) {
-        return ResponseEntity.status(HttpStatus.OK).body(userService.getProjection(id));
+    public ResponseEntity<UserDto> getUserById(@PathVariable long id) {
+        return ResponseEntity.status(HttpStatus.OK).body(userService.getDto(id));
     }
 
     @PostMapping
