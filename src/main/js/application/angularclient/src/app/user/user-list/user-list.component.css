@@ -1,0 +1,13 @@
+th#operation {
+  text-align: center;
+}
+td#add, td#delete, td#edit{
+  width: 5%;
+}
+
+#navlist {
+  padding:0;
+  margin:0;
+  float:left;
+}
+
