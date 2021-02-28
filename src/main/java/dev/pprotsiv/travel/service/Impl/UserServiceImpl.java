@@ -1,5 +1,7 @@
 package dev.pprotsiv.travel.service.Impl;
 
+import dev.pprotsiv.travel.dto.UserDto;
+import dev.pprotsiv.travel.dto.UserDtoMapper;
 import dev.pprotsiv.travel.exception.NullEntityReferenceException;
 import dev.pprotsiv.travel.model.User;
 import dev.pprotsiv.travel.projection.UserProjection;
@@ -44,9 +46,17 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    public UserDto getDto(long id) {
+        return UserDtoMapper.convertToDto(readById(id));
+    }
+
+    @Override
     public User update(User user) {
         if (user != null) {
-            readById(user.getId());
+            User readById = readById(user.getId());
+            if (user.getPassword()==null){
+                user.setPassword(readById.getPassword());
+            }
             return userRepository.save(user);
         }
         throw new NullEntityReferenceException("User cannot be 'null'");
@@ -58,10 +68,9 @@ public class UserServiceImpl implements UserService {
     }
 
 
-
     @Override
-    public List<UserProjection> getAllProjections() {
-        List<UserProjection> allUsers = userRepository.getAllProjections();
+    public List<UserDto> getAllDtos() {
+        List<UserDto> allUsers = UserDtoMapper.convertToDto(userRepository.findAll());
         return allUsers.isEmpty() ? new ArrayList<>() : allUsers;
     }
 

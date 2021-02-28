@@ -1,24 +1,37 @@
 <div class="card my-5">
   <div class="card-body">
-    <table class="table table-bordered table-striped">
-      <thead class="thead-dark">
+
+    <table class="table table-bordered">
+
+      <thead class="thead-light">
       <tr>
         <th scope="col">№</th>
-        <th scope="col">id</th>
         <th scope="col">Name</th>
         <th scope="col">Email</th>
-        <th colspan="3">Operations</th>
+        <th scope="col">Roles</th>
+        <th id="operation" colspan="3">Operations</th>
       </tr>
       </thead>
       <tbody>
       <tr *ngFor="let user of users; index as i">
-        <td>{{ i+1 }}</td>
-        <td>{{ user.id }}</td>
-        <td>{{ user.name }}</td>
-        <td><a href="mailto:{{ user.email }}">{{ user.email }}</a></td>
-        <td><button class="btn btn-danger" (click)="deleteUser(user)">Delete</button></td>
-        <td><button class="btn btn-success" (click)="updateUser(user)">Edit</button></td>
-        <td><button class="btn btn-success" (click)="getOrders(user)">Orders</button></td>
+        <td>{{ i + 1 }}</td>
+        <td>{{ user.username }}</td>
+        <td>{{ user.email }}</td>
+        <td>
+
+          <div id="navlist" class="list-group list-group-horizontal" *ngFor="let role of user.roles">
+            <div class="list-group-item">{{role.name.substr(5)}} </div>
+          </div>
+        </td>
+        <td id="add">
+          <button class="btn btn-info" (click)="getOrders(user)">Orders</button>
+        </td>
+        <td id="edit">
+          <button class="btn btn-info" (click)="updateUser(user)">Edit</button>
+        </td>
+        <td id="delete">
+          <button class="btn btn-outline-danger" (click)="deleteUser(user)">Delete</button>
+        </td>
       </tr>
       </tbody>
     </table>

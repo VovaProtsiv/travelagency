@@ -20,13 +20,13 @@
         <td>{{ order.state }}</td>
         <td>****$</td>
         <td>
-          <button  class="btn btn-success" (click)="getRooms(order)">{{order.hotelName}}</button>
+          <button  class="btn btn-info" (click)="getRooms(order)">{{order.hotelName}}</button>
         </td>
         <td>
-          <button class="btn btn-success" (click)="updateOrder(order)">Edit</button>
+          <button class="btn btn-info" (click)="updateOrder(order)">Edit</button>
         </td>
         <td>
-          <button class="btn btn-success" (click)="deleteOrder(order)">Delete</button>
+          <button class="btn btn-outline-danger" (click)="deleteOrder(order)">Delete</button>
         </td>
       </tr>
       </tbody>

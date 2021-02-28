@@ -21,7 +21,7 @@ import {HotelAdminComponent} from "./hotel/hotel-admin/hotel-admin.component";
 const routes: Routes = [
   {path: 'users', component: UserListComponent},
   {path: 'adduser', component: UserFormComponent},
-  {path: 'edit-user', component: EditUserComponent},
+  {path: 'edit-user/:userId', component: EditUserComponent},
   {path: 'hotels', component: HotelListComponent},
   {path: 'add-hotel', component: HotelFormComponent},
   {path: 'hotel-edit', component: HotelEditComponent},
