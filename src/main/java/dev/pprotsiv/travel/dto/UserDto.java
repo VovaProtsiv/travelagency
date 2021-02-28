@@ -1,6 +1,6 @@
 package dev.pprotsiv.travel.dto;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
+import dev.pprotsiv.travel.model.Role;
 
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
@@ -14,22 +14,28 @@ public class UserDto {
 
     @NotBlank
     @Size(max = 20)
-    private String name;
+    private String username;
 
     @NotBlank
     @Size(max = 50)
     @Email
     private String email;
 
-    Set<String> roles = new HashSet<>();
+    @NotBlank
+    @Size(max = 120)
+    private String password;
+
+    Set<Role> roles = new HashSet<>();
 
     public UserDto() {
     }
 
-    public UserDto(Long id,String name, String email, Set<String> roles) {
+
+    public UserDto(Long id, String username, String email, String password, Set<Role> roles) {
         this.id = id;
-        this.name = name;
+        this.username = username;
         this.email = email;
+        this.password = password;
         this.roles = roles;
     }
 
@@ -41,12 +47,12 @@ public class UserDto {
         this.id = id;
     }
 
-    public String getName() {
-        return name;
+    public String getUsername() {
+        return username;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setUsername(String username) {
+        this.username = username;
     }
 
     public String getEmail() {
@@ -57,11 +63,19 @@ public class UserDto {
         this.email = email;
     }
 
-    public Set<String> getRoles() {
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    public Set<Role> getRoles() {
         return roles;
     }
 
-    public void setRoles(Set<String> roles) {
+    public void setRoles(Set<Role> roles) {
         this.roles = roles;
     }
 }
