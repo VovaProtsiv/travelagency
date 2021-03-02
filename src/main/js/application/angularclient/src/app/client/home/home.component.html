@@ -30,7 +30,7 @@
     <div class="card-block px-2">
       <h4 class="card-title">{{hotel.name}}</h4>
       <p class="card-text">{{hotel.country}}, {{hotel.city}}, {{hotel.street}}, {{hotel.houseNumber}} </p>
-      <a href="home/hotel/{{hotel.id}}" class="btn btn-primary">See availability</a>
+      <a (click)="getAvailability(hotel.id)" class="btn btn-primary">See availability</a>
     </div>
 
 
