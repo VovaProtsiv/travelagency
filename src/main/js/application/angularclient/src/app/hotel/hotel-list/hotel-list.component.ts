@@ -32,4 +32,7 @@ export class HotelListComponent implements OnInit {
     this.router.navigate(['hotel-edit']);
   }
 
+  addHotel() {
+this.router.navigate(['add-hotel']);
+  }
 }
