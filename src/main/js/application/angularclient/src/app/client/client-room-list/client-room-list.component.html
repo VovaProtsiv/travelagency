@@ -1,6 +1,6 @@
 <div class="container">
   <div class="card flex-row flex-wrap">
-    <div class="card-header border-0">
+    <div class="card-header border-0" *ngIf="hotel">
       <h4 class="card-title">{{hotel.name}}</h4>
       <p class="card-text">{{hotel.country}}, {{hotel.city}}, {{hotel.street}}, {{hotel.houseNumber}} </p>
       <img src="//placehold.it/200" alt="">
@@ -13,7 +13,25 @@
 </div>
 <div class="card my-5">
   <div class="card-body">
-    <form (ngSubmit)="submitForm()">
+
+    <form [formGroup]="form" (ngSubmit)="submitForm()">
+      <div class="card bg-light my-3">
+        <div class="card-body">
+          <ul class="text-center list-inline py-1">
+
+            <li class="list-inline-item">
+              <label for="Check-in" class="form-label">Check-in</label>
+              <input type="date" class="form-control" placeholder="Check-in" id="Check-in"
+                     formControlName="checkIn">
+            </li>
+            <li class="list-inline-item">
+              <label for="Check-out" class="form-label">Check-out</label>
+              <input type="date" class="form-control" placeholder="Check-out" id="Check-out" formControlName="checkOut">
+            </li>
+          </ul>
+        </div>
+      </div>
+
       <table class="table table-bordered">
 
         <thead class="thead-light">
@@ -28,9 +46,11 @@
         <tr *ngFor="let room of rooms">
           <td>{{ room.sleeps }}</td>
           <td>{{ room.name }}</td>
-          <td>****$</td>
+          <td>{{room.price}} $</td>
           <td>
-            <input class="form-check-input" type="checkbox" [value]="room.id" (change)="onCheckboxChange($event)"  id="selectRoom">
+            <label for="selectRoom"></label>
+            <input class="form-check-input" type="checkbox" [value]="room.id" (change)="onCheckboxChange($event)"
+                   id="selectRoom">
           </td>
         </tr>
         </tbody>

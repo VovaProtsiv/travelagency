@@ -1,11 +1,13 @@
 import {Component, OnInit} from '@angular/core';
 import {Hotel} from "../../model/hotel";
 import {HotelService} from "../../service/hotel-service";
-import {ActivatedRoute} from "@angular/router";
+import {ActivatedRoute, Router} from "@angular/router";
 import {Room} from "../../model/room";
 import {RoomService} from "../../service/room-service";
 import {Order} from "../../model/order";
 import {FormArray, FormBuilder, FormControl, FormGroup} from "@angular/forms";
+import {OrderService} from "../../service/order-service";
+import {first} from "rxjs/operators";
 
 @Component({
   selector: 'app-client-room-list',
@@ -21,9 +23,11 @@ export class ClientRoomListComponent implements OnInit {
   roomsId: string[];
 
 
-  constructor(private hotelService: HotelService, private rout: ActivatedRoute, private roomService: RoomService, private fb: FormBuilder) {
+  constructor(private hotelService: HotelService, private orderService: OrderService, private rout: ActivatedRoute, private roomService: RoomService, private fb: FormBuilder, private router: Router) {
     this.order = new Order();
     this.form = this.fb.group({
+      checkIn: [],
+      checkOut: [],
       checkArray: this.fb.array([])
     })
 
@@ -35,7 +39,7 @@ export class ClientRoomListComponent implements OnInit {
     this.roomService.findAll(this.id).subscribe(data => this.rooms = data);
     this.order.hotelId = parseInt(this.id);
     this.order.state = 'NEW';
-
+    this.order.userId = parseInt(this.rout.snapshot.paramMap.get('userId'));
   }
 
   onCheckboxChange(e) {
@@ -58,9 +62,17 @@ export class ClientRoomListComponent implements OnInit {
   }
 
   submitForm() {
-    console.log(this.form.value);
-    this.order.rooms= this.form.value.checkArray;
-    console.log(this.order);
+    this.order.rooms = this.form.value.checkArray;
+    this.order.checkIn = this.form.value.checkIn;
+    this.order.checkOut = this.form.value.checkOut;
+    this.orderService.save(this.order).pipe(first()).subscribe(result => {
+      console.log("ggffjhgjh");
+      this.gotoHome();});
+  }
+
+  private gotoHome() {
+    console.log("klj")
+this.router.navigate(['/home'])
   }
 }
 

@@ -23,6 +23,7 @@ import {RegisterComponent} from './register/register.component';
 import {ProfileComponent} from './profile/profile.component';
 import {authInterceptorProviders} from "./service/auth.interceptor";
 import { HotelAdminComponent } from './hotel/hotel-admin/hotel-admin.component';
+import {OrderService} from "./service/order-service";
 
 
 @NgModule({
@@ -52,7 +53,7 @@ import { HotelAdminComponent } from './hotel/hotel-admin/hotel-admin.component';
     FormsModule,
     ReactiveFormsModule
   ],
-  providers: [authInterceptorProviders, UserService, HotelService],
+  providers: [authInterceptorProviders,OrderService, UserService, HotelService],
   bootstrap: [AppComponent]
 })
 export class AppModule {

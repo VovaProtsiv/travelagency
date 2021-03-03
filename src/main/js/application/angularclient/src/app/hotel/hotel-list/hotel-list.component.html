@@ -1,13 +1,15 @@
 <div class="card my-5">
   <div class="card-body">
+
     <table class="table table-bordered">
+
       <thead class="thead-light">
       <tr>
         <th scope="col">№</th>
 
         <th scope="col">Name</th>
         <th scope="col">Address</th>
-        <th id = "operation" colspan="2">Operations</th>
+        <th id="operation" colspan="2">Operations</th>
       </tr>
       </thead>
       <tbody>
@@ -16,13 +18,15 @@
         <td><a href="/hotel/{{hotel.id}}" class="nav-link">{{hotel.name }}</a></td>
         <td>{{hotel.street}} street {{hotel.houseNumber}}, {{hotel.city}}, {{hotel.country }}</td>
         <td id="edit">
-          <button class="btn btn-info" (click)="updateHotel(hotel)">Edit</button>
+          <button class="btn btn-info" (click)="updateHotel(hotel)"><i class="fa fa-edit"></i></button>
         </td>
         <td id="delete">
-          <button class="btn btn-outline-danger" (click)="deleteHotel(hotel)">Delete</button>
+          <button class="btn btn-outline-danger" (click)="deleteHotel(hotel)"><i class="fa fa-trash"></i></button>
         </td>
       </tr>
       </tbody>
+
     </table>
+    <button type="button" class="btn btn-info px-3" (click)="addHotel()"><i class="fa fa-plus-circle"  aria-hidden="true"></i> Add hotel</button>
   </div>
 </div>

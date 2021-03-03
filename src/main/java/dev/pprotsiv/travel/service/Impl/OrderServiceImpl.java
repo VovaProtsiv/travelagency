@@ -1,5 +1,7 @@
 package dev.pprotsiv.travel.service.Impl;
 
+import dev.pprotsiv.travel.dto.OrderDto;
+import dev.pprotsiv.travel.dto.OrderDtoMapper;
 import dev.pprotsiv.travel.exception.NullEntityReferenceException;
 import dev.pprotsiv.travel.model.Order;
 import dev.pprotsiv.travel.projection.OrderProjection;
@@ -21,8 +23,9 @@ public class OrderServiceImpl implements OrderService {
     }
 
     @Override
-    public Order create(Order order) {
-        if (order != null) {
+    public Order create(OrderDto dto) {
+        if (dto != null) {
+            Order order = OrderDtoMapper.fromDto(dto);
             return orderRepository.save(order);
         }
         throw new NullEntityReferenceException("Order cannot be 'null'");

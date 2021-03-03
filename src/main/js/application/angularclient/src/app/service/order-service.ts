@@ -1,10 +1,11 @@
 import {Injectable} from '@angular/core';
-import {HttpClient} from "@angular/common/http";
+import {HttpClient, HttpHeaders} from "@angular/common/http";
 import {Observable} from "rxjs";
 
 import {Order} from "../model/order";
-import {User} from "../model/user";
-
+const httpOptions = {
+  headers: new HttpHeaders({'Content-Type': 'application/json'})
+};
 @Injectable({
   providedIn: 'root'
 })
@@ -21,5 +22,11 @@ export class OrderService {
 
   public delete(order: Order) {
     return this.http.delete(this.orderUrl + "/remove/" + order.id);
+  }
+
+  save(order: Order) {
+    let message = this.orderUrl + '/' + order.userId;
+    console.log(order);
+    return this.http.post<Order>(message, order);
   }
 }
