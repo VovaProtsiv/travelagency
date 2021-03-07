@@ -2,33 +2,48 @@ package dev.pprotsiv.travel.service.Impl;
 
 import dev.pprotsiv.travel.dto.OrderDto;
 import dev.pprotsiv.travel.dto.OrderDtoMapper;
+import dev.pprotsiv.travel.exception.BookedRoomsExceptions;
 import dev.pprotsiv.travel.exception.NullEntityReferenceException;
 import dev.pprotsiv.travel.model.Order;
+import dev.pprotsiv.travel.model.State;
 import dev.pprotsiv.travel.projection.OrderProjection;
+import dev.pprotsiv.travel.projection.RoomProjection;
 import dev.pprotsiv.travel.repo.OrderRepository;
 import dev.pprotsiv.travel.service.OrderService;
+import dev.pprotsiv.travel.service.RoomService;
 import org.springframework.stereotype.Service;
 
 import javax.persistence.EntityNotFoundException;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
+import java.util.stream.Collectors;
 
 @Service
 public class OrderServiceImpl implements OrderService {
     private final OrderRepository orderRepository;
+    private final RoomService roomService;
 
-    public OrderServiceImpl(OrderRepository orderRepository) {
+    public OrderServiceImpl(OrderRepository orderRepository, RoomService roomService) {
         this.orderRepository = orderRepository;
+        this.roomService = roomService;
     }
 
     @Override
     public Order create(OrderDto dto) {
         if (dto != null) {
             Order order = OrderDtoMapper.fromDto(dto);
-            return orderRepository.save(order);
+            if (isFreeRooms(dto)) {
+                return orderRepository.save(order);
+            } else {
+                throw new BookedRoomsExceptions("Selected rooms have been booked");
+            }
         }
         throw new NullEntityReferenceException("Order cannot be 'null'");
+    }
+
+    private boolean isFreeRooms(OrderDto dto) {
+        List<String> orderedRoomsId = roomService.findOrderedRoomByHotelIdAndDate(Long.parseLong(dto.getHotelId()), State.NEW.name(), dto.getCheckIn(), dto.getCheckOut());
+        Set<String> roomsId = dto.getRooms();
+        return Collections.disjoint(orderedRoomsId, roomsId);
     }
 
     @Override
