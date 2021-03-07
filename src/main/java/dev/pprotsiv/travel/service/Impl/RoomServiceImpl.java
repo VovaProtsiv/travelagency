@@ -8,6 +8,7 @@ import dev.pprotsiv.travel.service.RoomService;
 import org.springframework.stereotype.Service;
 
 import javax.persistence.EntityNotFoundException;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -69,6 +70,12 @@ public class RoomServiceImpl implements RoomService {
     @Override
     public List<RoomProjection> getProjectionsByOrderID(long id) {
         List<RoomProjection> rooms = roomRepository.findProjectionsByOrderId(id);
+        return rooms.isEmpty() ? new ArrayList<>() : rooms;
+    }
+
+    @Override
+    public List<String> findOrderedRoomByHotelIdAndDate(long id, String state, LocalDate checkIn, LocalDate checkOut) {
+        List<String> rooms = roomRepository.findOrderedRoomByHotelIdAndDate(id,state,checkIn,checkOut);
         return rooms.isEmpty() ? new ArrayList<>() : rooms;
     }
 
