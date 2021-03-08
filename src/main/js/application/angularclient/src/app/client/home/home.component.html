@@ -1,24 +1,28 @@
 <div class="card bg-light my-3">
   <div class="card-body">
+<form (ngSubmit)="onSubmit()">
     <ul class="text-center list-inline py-1">
 
       <li class="list-inline-item">
         <label for="city" class="form-label">City</label>
         <input type="text" class="form-control" placeholder="City" id="city"
-               [(ngModel)]='text' (ngModelChange)='onChange($event)'>
+               [(ngModel)]='text' name="text" (ngModelChange)='onChange($event)'>
       </li>
+
       <li class="list-inline-item">
         <label for="Check-in" class="form-label">Check-in</label>
-        <input type="date" class="form-control" placeholder="Check-in" id="Check-in">
+        <input type="date" [(ngModel)]='checkIn' name="checkIn"  class="form-control" placeholder="Check-in" id="Check-in">
       </li>
       <li class="list-inline-item">
         <label for="Check-out" class="form-label">Check-out</label>
-        <input type="date" class="form-control" placeholder="Check-out" id="Check-out">
+        <input type="date" [(ngModel)]='checkOut' name="checkOut" class="form-control" placeholder="Check-out" id="Check-out">
       </li>
       <li class="list-inline-item">
-        <button class="btn btn-info">Search</button>
+        <button class="btn btn-info" >Search</button>
       </li>
+
     </ul>
+</form>
   </div>
 </div>
 
@@ -30,6 +34,7 @@
     <div class="card-block px-2">
       <h4 class="card-title">{{hotel.name}}</h4>
       <p class="card-text">{{hotel.country}}, {{hotel.city}}, {{hotel.street}}, {{hotel.houseNumber}} </p>
+      <p style="color:red;"> {{checkAvailable(hotel.id, checkIn, checkOut)}} </p>
       <a (click)="getAvailability(hotel.id)" class="btn btn-primary">See availability</a>
     </div>
 
