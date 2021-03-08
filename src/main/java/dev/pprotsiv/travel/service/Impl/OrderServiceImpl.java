@@ -3,11 +3,11 @@ package dev.pprotsiv.travel.service.Impl;
 import dev.pprotsiv.travel.dto.OrderDto;
 import dev.pprotsiv.travel.dto.OrderDtoMapper;
 import dev.pprotsiv.travel.exception.BookedRoomsExceptions;
+import dev.pprotsiv.travel.exception.IllegalDateException;
 import dev.pprotsiv.travel.exception.NullEntityReferenceException;
 import dev.pprotsiv.travel.model.Order;
 import dev.pprotsiv.travel.model.State;
 import dev.pprotsiv.travel.projection.OrderProjection;
-import dev.pprotsiv.travel.projection.RoomProjection;
 import dev.pprotsiv.travel.repo.OrderRepository;
 import dev.pprotsiv.travel.service.OrderService;
 import dev.pprotsiv.travel.service.RoomService;
@@ -15,7 +15,6 @@ import org.springframework.stereotype.Service;
 
 import javax.persistence.EntityNotFoundException;
 import java.util.*;
-import java.util.stream.Collectors;
 
 @Service
 public class OrderServiceImpl implements OrderService {
@@ -30,7 +29,11 @@ public class OrderServiceImpl implements OrderService {
     @Override
     public Order create(OrderDto dto) {
         if (dto != null) {
+            if (dto.getRooms().isEmpty()){
+                throw new IllegalArgumentException("At least one room must be selected.");
+            }
             Order order = OrderDtoMapper.fromDto(dto);
+            isValidDate(dto);
             if (isFreeRooms(dto)) {
                 return orderRepository.save(order);
             } else {
@@ -38,6 +41,15 @@ public class OrderServiceImpl implements OrderService {
             }
         }
         throw new NullEntityReferenceException("Order cannot be 'null'");
+    }
+
+    private void isValidDate(OrderDto dto) {
+        if (dto.getCheckIn() == null || dto.getCheckOut() == null) {
+            throw new IllegalDateException("Check-in and check-out can't be 'null'");
+        }
+        if (!dto.getCheckIn().isBefore(dto.getCheckOut())){
+            throw new IllegalDateException("Check-out should be greater than check-in");
+        }
     }
 
     private boolean isFreeRooms(OrderDto dto) {
