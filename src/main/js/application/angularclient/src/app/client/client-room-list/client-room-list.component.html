@@ -1,3 +1,5 @@
+<ng-template #notavailable>Not available</ng-template>
+
 <div class="container">
   <div class="card flex-row flex-wrap">
     <div class="card-header border-0" *ngIf="hotel">
@@ -21,12 +23,12 @@
 
             <li class="list-inline-item">
               <label for="Check-in" class="form-label">Check-in</label>
-              <input type="date" class="form-control" placeholder="Check-in" id="Check-in"
+              <input type="date" class="form-control" (change)="onChangeDate($event)" placeholder="Check-in" id="Check-in"
                      formControlName="checkIn">
             </li>
             <li class="list-inline-item">
               <label for="Check-out" class="form-label">Check-out</label>
-              <input type="date" class="form-control" placeholder="Check-out" id="Check-out" formControlName="checkOut">
+              <input type="date" class="form-control" placeholder="Check-out" (change)="onChangeDate($event)" id="Check-out" formControlName="checkOut">
             </li>
           </ul>
         </div>
@@ -43,15 +45,19 @@
         </tr>
         </thead>
         <tbody>
-        <tr *ngFor="let room of rooms">
-          <td>{{ room.sleeps }}</td>
-          <td>{{ room.name }}</td>
-          <td>{{room.price}} $</td>
-          <td>
-            <label for="selectRoom"></label>
-            <input class="form-check-input" type="checkbox" [value]="room.id" (change)="onCheckboxChange($event)"
-                   id="selectRoom">
-          </td>
+        <tr *ngFor="let room of rooms" >
+
+            <td>{{ room.sleeps }}</td>
+            <td>{{ room.name }}</td>
+            <td>{{room.price}} $</td>
+            <td *ngIf="roomsOrderedID">
+
+              <label for="selectRoom"></label>
+              <input class="form-check-input" type="checkbox" *ngIf="!roomsOrderedID.includes(room.id);else notavailable" [value]="room.id" (change)="onCheckboxChange($event)"
+                     id="selectRoom">
+
+            </td>
+
         </tr>
         </tbody>
       </table>
