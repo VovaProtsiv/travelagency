@@ -1,4 +1,4 @@
-import {Injectable} from '@angular/core';
+  import {Injectable} from '@angular/core';
 import {HttpClient} from "@angular/common/http";
 import {Room} from "../model/room";
 import {Observable} from "rxjs";
@@ -31,6 +31,10 @@ export class RoomService {
   }
 
   public edit(room: Room) {
-   return this.http.put<Room>(this.roomUrl + '/' + room.hotelId + '/edit/' + room.id, room);
+    return this.http.put<Room>(this.roomUrl + '/' + room.hotelId + '/edit/' + room.id, room);
+  }
+
+  public getOrderedRoom(id: string, check_in: Date, check_out: Date): Observable<String[]>{
+    return this.http.get<String[]>(this.roomUrl+'/'+id+'/'+check_in+'/'+check_out);
   }
 }
