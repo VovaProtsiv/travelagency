@@ -1,8 +1,9 @@
 import {Component, OnInit} from '@angular/core';
 import {Hotel} from "../../model/hotel";
 import {HotelService} from "../../service/hotel-service";
-import {Router} from "@angular/router";
+import {ActivatedRoute, Router} from "@angular/router";
 import {TokenStorage} from "../../service/token-storage";
+import {RoomService} from "../../service/room-service";
 
 @Component({
   selector: 'app-home',
@@ -12,8 +13,10 @@ import {TokenStorage} from "../../service/token-storage";
 export class HomeComponent implements OnInit {
   text: string = '';
   hotels: Hotel[];
+  checkIn: Date;
+  checkOut: Date;
 
-  constructor(private hotelService: HotelService, private route : Router, private tokenStorage: TokenStorage) {
+  constructor(private hotelService: HotelService, private rout: ActivatedRoute, private route: Router, private tokenStorage: TokenStorage, private roomService: RoomService) {
   }
 
   ngOnInit(): void {
@@ -26,6 +29,23 @@ export class HomeComponent implements OnInit {
   }
 
   getAvailability(id: string) {
-    this.route.navigate(['/home/'+this.tokenStorage.getUser().id+'/hotel/'+id])
+    this.route.navigate(['/home/' + this.tokenStorage.getUser().id + '/hotel/' + id],
+      {
+        relativeTo: this.rout, queryParams: {
+          check_in: this.checkIn,
+          check_out: this.checkOut
+        },
+      })
+  }
+
+  checkAvailable(id: string, checkIn: Date, checkOut: Date): string {
+    return 'No rooms available for the dates requested.';
+  }
+
+
+  onSubmit() {
+    this.roomService.getOrderedRoom('1000', this.checkIn, this.checkOut).subscribe(data => {
+      console.log(data);
+    });
   }
 }

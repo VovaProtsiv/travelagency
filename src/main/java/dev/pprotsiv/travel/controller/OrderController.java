@@ -2,6 +2,7 @@ package dev.pprotsiv.travel.controller;
 
 import dev.pprotsiv.travel.dto.OrderDto;
 import dev.pprotsiv.travel.model.Order;
+import dev.pprotsiv.travel.model.State;
 import dev.pprotsiv.travel.model.User;
 import dev.pprotsiv.travel.projection.OrderProjection;
 import dev.pprotsiv.travel.service.OrderService;
@@ -31,7 +32,7 @@ public class OrderController {
     }
 
     @PostMapping("/{userId}")
-    public ResponseEntity<Order> createOrder(@PathVariable long userId, @RequestBody OrderDto dto){
+    public ResponseEntity<Order> createOrder(@PathVariable long userId, @RequestBody OrderDto dto) {
         return ResponseEntity.status(HttpStatus.OK).body(orderService.create(dto));
     }
 
@@ -45,9 +46,10 @@ public class OrderController {
         orderService.delete(order_id);
     }
 
-    @PutMapping("/edit/{order_id}")
-    public Order editRoom(@PathVariable long order_id, @RequestBody Order order) {
-
-        return order;
+    @PutMapping("/{order_id}/cancel")
+    public ResponseEntity<Order> cancelBooking(@PathVariable long order_id) {
+        Order order = orderService.readById(order_id);
+        order.setState(State.CANCELED);
+        return ResponseEntity.status(HttpStatus.OK).body(orderService.update(order));
     }
 }

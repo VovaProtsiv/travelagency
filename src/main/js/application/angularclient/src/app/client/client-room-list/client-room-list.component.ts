@@ -21,25 +21,45 @@ export class ClientRoomListComponent implements OnInit {
   id: string;
   form: FormGroup;
   roomsId: string[];
-
+  checkIn: Date;
+  checkOut: Date;
+  roomsOrderedID: String[];
 
   constructor(private hotelService: HotelService, private orderService: OrderService, private rout: ActivatedRoute, private roomService: RoomService, private fb: FormBuilder, private router: Router) {
-    this.order = new Order();
-    this.form = this.fb.group({
-      checkIn: [],
-      checkOut: [],
-      checkArray: this.fb.array([])
-    })
 
   }
 
-  ngOnInit(): void {
+  async ngOnInit(): Promise<void> {
+    this.order = new Order();
+    this.rout.queryParams.subscribe(params => {
+      this.checkIn = params['check_in'];
+      this.checkOut = params['check_out'];
+    });
+
+    this.fillForm();
+
     this.id = this.rout.snapshot.paramMap.get('hotelId');
     this.hotelService.getHotelById(parseInt(this.id)).subscribe(data => this.hotel = data);
     this.roomService.findAll(this.id).subscribe(data => this.rooms = data);
     this.order.hotelId = parseInt(this.id);
     this.order.state = 'NEW';
     this.order.userId = parseInt(this.rout.snapshot.paramMap.get('userId'));
+    this.roomsOrderedID = await this.getOrderedRoomsId();
+  }
+
+  private fillForm() {
+    this.form = this.fb.group({
+      checkIn: [this.checkIn],
+      checkOut: [this.checkOut],
+      checkArray: this.fb.array([])
+    });
+  }
+
+  private async getOrderedRoomsId(): Promise<String[]> {
+    await this.roomService.getOrderedRoom(this.id, this.checkIn, this.checkOut).toPromise().then(data => {
+      this.roomsOrderedID = data;
+    });
+    return this.roomsOrderedID;
   }
 
   onCheckboxChange(e) {
@@ -66,13 +86,21 @@ export class ClientRoomListComponent implements OnInit {
     this.order.checkIn = this.form.value.checkIn;
     this.order.checkOut = this.form.value.checkOut;
     this.orderService.save(this.order).pipe(first()).subscribe(result => {
-      console.log("ggffjhgjh");
-      this.gotoHome();});
+      this.gotoHome();
+    });
   }
 
   private gotoHome() {
     console.log("klj")
-this.router.navigate(['/home'])
+    this.router.navigate(['/home'])
+  }
+
+
+  async onChangeDate(e) {
+      this.checkIn = this.form.value.checkIn;
+      this.checkOut = this.form.value.checkOut;
+      this.fillForm();
+    this.roomsOrderedID = await this.getOrderedRoomsId();
   }
 }
 

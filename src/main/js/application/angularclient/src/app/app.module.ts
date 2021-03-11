@@ -24,6 +24,7 @@ import {ProfileComponent} from './profile/profile.component';
 import {authInterceptorProviders} from "./service/auth.interceptor";
 import { HotelAdminComponent } from './hotel/hotel-admin/hotel-admin.component';
 import {OrderService} from "./service/order-service";
+import { OrderUserComponent } from './order/order-user/order-user.component';
 
 
 @NgModule({
@@ -45,6 +46,7 @@ import {OrderService} from "./service/order-service";
     RegisterComponent,
     ProfileComponent,
     HotelAdminComponent,
+    OrderUserComponent,
   ],
   imports: [
     BrowserModule,

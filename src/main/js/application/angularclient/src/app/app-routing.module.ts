@@ -16,6 +16,7 @@ import {LoginComponent} from "./login/login.component";
 import {RegisterComponent} from "./register/register.component";
 import {ProfileComponent} from "./profile/profile.component";
 import {HotelAdminComponent} from "./hotel/hotel-admin/hotel-admin.component";
+import {OrderUserComponent} from "./order/order-user/order-user.component";
 
 
 const routes: Routes = [
@@ -33,6 +34,7 @@ const routes: Routes = [
   {path: 'home', component: HomeComponent},
   {path: 'home/:userId/hotel/:hotelId', component: ClientRoomListComponent},
   {path: 'orders/:userId/all', component: OrderListComponent},
+  {path: 'my-orders', component: OrderUserComponent},
   {path: 'login', component: LoginComponent},
   {path: 'register', component: RegisterComponent},
   {path: 'profile', component: ProfileComponent},
