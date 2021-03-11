@@ -26,7 +26,11 @@ export class OrderService {
 
   save(order: Order) {
     let message = this.orderUrl + '/' + order.userId;
-    console.log(order);
     return this.http.post<Order>(message, order);
+  }
+
+  cancelBooking(id: string) {
+    let message = this.orderUrl + '/' + id+'/cancel';
+    return this.http.put<Order>(message, '');
   }
 }
