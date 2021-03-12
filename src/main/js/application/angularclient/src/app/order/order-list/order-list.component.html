@@ -20,10 +20,20 @@
         <td>{{ order.state }}</td>
         <td>****$</td>
         <td>
-          <button  class="btn btn-info" (click)="getRooms(order)">{{order.hotelName}}</button>
+          <ng-template #popContent>
+            <ul class="list-group" *ngFor="let room of rooms">
+              <li class="list-group-item">{{room.name}} sleeps: {{room.sleeps}}</li>
+            </ul>
+            <div>{{hotel.street}} street {{hotel.houseNumber}}, {{hotel.city}}, {{hotel.country }}</div>
+          </ng-template>
+          <ng-template #popTitle>Ordered rooms</ng-template>
+          <button type="button" class="btn btn-info" (click)="getRooms(order)" [ngbPopover]="popContent"
+                  [popoverTitle]="popTitle">{{order.hotelName}}</button>
         </td>
         <td>
-          <button class="btn btn-info" (click)="updateOrder(order)">Edit</button>
+          <div *ngIf="order.state==='NEW'">
+            <button class="btn btn-info" (click)="cancelOrder(order.id)">Cancel</button>
+          </div>
         </td>
         <td>
           <button class="btn btn-outline-danger" (click)="deleteOrder(order)">Delete</button>

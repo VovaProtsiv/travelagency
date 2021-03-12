@@ -3,6 +3,10 @@ import {Order} from "../../model/order";
 import {ActivatedRoute, Router} from "@angular/router";
 import {OrderService} from "../../service/order-service";
 import {HotelService} from "../../service/hotel-service";
+import {first} from "rxjs/operators";
+import {RoomService} from "../../service/room-service";
+import {Room} from "../../model/room";
+import {Hotel} from "../../model/hotel";
 
 @Component({
   selector: 'app-order-list',
@@ -11,9 +15,10 @@ import {HotelService} from "../../service/hotel-service";
 })
 export class OrderListComponent implements OnInit {
   orders: Order[];
+  rooms: Room[];
+  hotel: Hotel;
 
-
-  constructor(private route: ActivatedRoute, private router: Router, private orderService: OrderService, private hotelService: HotelService) {
+  constructor(private route: ActivatedRoute, private router: Router, private orderService: OrderService, private hotelService: HotelService, private roomService: RoomService) {
   }
 
   ngOnInit(): void {
@@ -22,9 +27,6 @@ export class OrderListComponent implements OnInit {
 
   }
 
-  updateOrder(order: Order) {
-
-  }
 
   deleteOrder(order: Order) {
     this.orderService.delete(order).subscribe(result => {
@@ -32,9 +34,12 @@ export class OrderListComponent implements OnInit {
     });
   }
 
-  getRooms(order: Order) {
-
+  cancelOrder(id: string) {
+    this.orderService.cancelBooking(id).pipe(first()).subscribe(result => location.reload());
   }
 
-
+  getRooms(order: Order) {
+    this.roomService.findByOrderId(order.id).subscribe(data => this.rooms = data);
+    this.hotelService.getHotelById(order.hotelId).subscribe(data => this.hotel = data);
+  }
 }
