@@ -22,6 +22,10 @@ export class RoomService {
     return this.http.get<Room[]>(this.roomUrl + '/' + hotelId + '/all');
   }
 
+  findByOrderId(orderId: string): Observable<Room[]> {
+   return this.http.get<Room[]>(this.roomUrl + '/order/' + orderId + '/all');
+  }
+
   getRoom(roomId: number): Observable<Room> {
     return this.http.get<Room>(this.roomUrl + "/" + roomId);
   }
