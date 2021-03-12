@@ -33,6 +33,10 @@ public class RoomController {
         return ResponseEntity.status(HttpStatus.OK).body(roomService.getAllProjectionsByHotelId(id));
     }
 
+    @GetMapping("/order/{id}/all")
+    public ResponseEntity<List<RoomProjection>> getRoomsByOrderId(@PathVariable long id) {
+        return ResponseEntity.status(HttpStatus.OK).body(roomService.getProjectionsByOrderID(id));
+    }
 
     @GetMapping("/{room_id}")
     public ResponseEntity<RoomProjection> getRoom(@PathVariable long room_id) {
