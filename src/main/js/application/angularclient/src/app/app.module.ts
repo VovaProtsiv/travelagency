@@ -25,6 +25,7 @@ import {authInterceptorProviders} from "./service/auth.interceptor";
 import { HotelAdminComponent } from './hotel/hotel-admin/hotel-admin.component';
 import {OrderService} from "./service/order-service";
 import { OrderUserComponent } from './order/order-user/order-user.component';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 
 @NgModule({
@@ -53,7 +54,8 @@ import { OrderUserComponent } from './order/order-user/order-user.component';
     AppRoutingModule,
     HttpClientModule,
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    NgbModule
   ],
   providers: [authInterceptorProviders,OrderService, UserService, HotelService],
   bootstrap: [AppComponent]

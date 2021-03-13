@@ -1,11 +1,14 @@
 package dev.pprotsiv.travel.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import dev.pprotsiv.travel.deserializer.MoneySerializer;
 import org.hibernate.validator.constraints.Range;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
+import java.math.BigDecimal;
 import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
@@ -26,6 +29,10 @@ public class Room {
     @Column(name = "sleeps", nullable = false)
     private Integer sleeps;
 
+
+    @JsonSerialize(using = MoneySerializer.class)
+    private BigDecimal price;
+
     @JsonIgnore
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "hotel_id")
@@ -38,10 +45,11 @@ public class Room {
     public Room() {
     }
 
-    public Room(Long id, String name, Integer sleeps, Hotel hotel, Set<Order> orders) {
+    public Room(Long id, String name, Integer sleeps, BigDecimal price, Hotel hotel, Set<Order> orders) {
         this.id = id;
         this.name = name;
         this.sleeps = sleeps;
+        this.price = price;
         this.hotel = hotel;
         this.orders = orders;
     }
@@ -52,6 +60,14 @@ public class Room {
 
     public void setId(Long id) {
         this.id = id;
+    }
+
+    public BigDecimal getPrice() {
+        return price;
+    }
+
+    public void setPrice(BigDecimal price) {
+        this.price = price;
     }
 
     public String getName() {
