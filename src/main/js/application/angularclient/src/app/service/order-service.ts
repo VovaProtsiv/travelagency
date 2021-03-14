@@ -33,4 +33,8 @@ export class OrderService {
     let message = this.orderUrl + '/' + id+'/cancel';
     return this.http.put<Order>(message, '');
   }
+
+  getTotalAmount(order: Order): Observable<any>{
+    return this.http.post<any>(this.orderUrl+'/total-amount',order)
+  }
 }
