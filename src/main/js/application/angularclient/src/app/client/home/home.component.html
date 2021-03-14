@@ -1,31 +1,34 @@
 <div class="card bg-light my-3">
   <div class="card-body">
-<form (ngSubmit)="onSubmit()">
-    <ul class="text-center list-inline py-1">
+    <form [formGroup]="myForm" (ngSubmit)="onSubmit()">
+      <ul class="text-center list-inline py-1">
 
-      <li class="list-inline-item">
-        <label for="city" class="form-label">City</label>
-        <input type="text" class="form-control" placeholder="City" id="city"
-               [(ngModel)]='text' name="text" (ngModelChange)='onChange($event)'>
-      </li>
+        <li class="list-inline-item">
+          <label for="city" class="form-label">City</label>
+          <input type="text" class="form-control" placeholder="City" id="city"
+                 [ngModel]='text' [ngModelOptions]="{standalone: true}" (ngModelChange)='onChange($event)'>
+        </li>
 
-      <li class="list-inline-item">
-        <label for="Check-in" class="form-label">Check-in</label>
-        <input type="date" [(ngModel)]='checkIn' name="checkIn"  class="form-control" placeholder="Check-in" id="Check-in">
-      </li>
-      <li class="list-inline-item">
-        <label for="Check-out" class="form-label">Check-out</label>
-        <input type="date" [(ngModel)]='checkOut' name="checkOut" class="form-control" placeholder="Check-out" id="Check-out">
-      </li>
-      <li class="list-inline-item">
-        <button class="btn btn-info" >Search</button>
-      </li>
-
-    </ul>
-</form>
+        <li class="list-inline-item">
+          <label for="Check-in" class="form-label">Check-in</label>
+          <input type="date" formControlName="checkIn" name="checkIn" class="form-control" placeholder="Check-in"
+                 id="Check-in" min="{{minDate | date:'yyyy-MM-dd'}}">
+        </li>
+        <li class="list-inline-item">
+          <label for="Check-out" class="form-label">Check-out</label>
+          <input type="date" formControlName='checkOut' name="checkOut" class="form-control" placeholder="Check-out"
+                 id="Check-out" min="{{maxDate | date:'yyyy-MM-dd'}}">
+        </li>
+        <li class="list-inline-item">
+          <button class="btn btn-info">Search</button>
+        </li>
+        <div *ngIf="myForm.get('checkOut').errors">
+          Check-out should be greater than check-in!
+        </div>
+      </ul>
+    </form>
   </div>
 </div>
-
 <div class="container" *ngFor="let hotel of hotels">
   <div class="card flex-row flex-wrap">
     <div class="card-header border-0">
@@ -34,11 +37,8 @@
     <div class="card-block px-2">
       <h4 class="card-title">{{hotel.name}}</h4>
       <p class="card-text">{{hotel.country}}, {{hotel.city}}, {{hotel.street}}, {{hotel.houseNumber}} </p>
-      <a (click)="getAvailability(hotel.id)" class="btn btn-primary">See availability</a>
+      <a *ngIf="isValid" (click)="getAvailability(hotel.id)" class="btn btn-primary">See availability</a>
     </div>
-
-
   </div>
-
 </div>
 
