@@ -28,7 +28,10 @@ export class OrderUserComponent implements OnInit {
   }
 
   getRooms(order: Order) {
-       this.roomService.findByOrderId(order.id).subscribe(data=>this.rooms=data);
+       this.roomService.findByOrderId(order.id).subscribe(data=>{this.rooms=data;
+
+       });
+
        this.hotelService.getHotelById(order.hotelId).subscribe(data=>this.hotel = data);
   }
 

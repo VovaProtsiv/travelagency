@@ -24,6 +24,7 @@ export class ClientRoomListComponent implements OnInit {
   checkIn: Date;
   checkOut: Date;
   roomsOrderedID: String[];
+  totalAmount: number = 0.00;
 
   constructor(private hotelService: HotelService, private orderService: OrderService, private rout: ActivatedRoute, private roomService: RoomService, private fb: FormBuilder, private router: Router) {
 
@@ -48,6 +49,7 @@ export class ClientRoomListComponent implements OnInit {
   }
 
   private fillForm() {
+
     this.form = this.fb.group({
       checkIn: [this.checkIn],
       checkOut: [this.checkOut],
@@ -67,7 +69,6 @@ export class ClientRoomListComponent implements OnInit {
 
     if (e.target.checked) {
       checkArray.push(new FormControl(e.target.value));
-
     } else {
       let i: number = 0;
       checkArray.controls.forEach((item: FormControl) => {
@@ -78,7 +79,16 @@ export class ClientRoomListComponent implements OnInit {
         i++;
       });
     }
+    this.addOrderRoomsAndDate();
+    this.orderService.getTotalAmount(this.order).pipe(first()).subscribe(data => {
+      this.totalAmount = data;
+    });
+  }
 
+  private addOrderRoomsAndDate() {
+    this.order.rooms = this.form.value.checkArray;
+    this.order.checkIn = this.form.value.checkIn;
+    this.order.checkOut = this.form.value.checkOut;
   }
 
   submitForm() {
@@ -91,16 +101,20 @@ export class ClientRoomListComponent implements OnInit {
   }
 
   private gotoHome() {
-    console.log("klj")
     this.router.navigate(['/home'])
   }
 
 
   async onChangeDate(e) {
-      this.checkIn = this.form.value.checkIn;
-      this.checkOut = this.form.value.checkOut;
-      this.fillForm();
+    this.checkIn = this.form.value.checkIn;
+    this.checkOut = this.form.value.checkOut;
+    this.fillForm();
     this.roomsOrderedID = await this.getOrderedRoomsId();
+    this.order.checkIn = this.form.value.checkIn;
+    this.order.checkOut = this.form.value.checkOut;
+    this.orderService.getTotalAmount(this.order).pipe(first()).subscribe(data => {
+      this.totalAmount = data;
+    });
   }
 }
 
