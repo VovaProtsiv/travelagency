@@ -38,14 +38,9 @@ export class HomeComponent implements OnInit {
       })
   }
 
-  checkAvailable(id: string, checkIn: Date, checkOut: Date): string {
-    return 'No rooms available for the dates requested.';
-  }
 
 
   onSubmit() {
-    this.roomService.getOrderedRoom('1000', this.checkIn, this.checkOut).subscribe(data => {
-      console.log(data);
-    });
+
   }
 }
