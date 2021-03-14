@@ -2,17 +2,19 @@ package dev.pprotsiv.travel.dto;
 
 import dev.pprotsiv.travel.model.State;
 
+import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.Set;
 
 public class OrderDto {
-   private Long id;
-   private LocalDate checkIn;
-   private LocalDate checkOut;
-   private String hotelId;
-   private Set<String> rooms;
-   private State state;
-   private String userId;
+    private Long id;
+    private LocalDate checkIn;
+    private LocalDate checkOut;
+    private String hotelId;
+    private Set<String> rooms;
+    private State state;
+    private String userId;
+    private BigDecimal totalAmount;
 
     public Long getId() {
         return id;
@@ -70,15 +72,11 @@ public class OrderDto {
         this.userId = userId;
     }
 
-    @Override
-    public String toString() {
-        return "OrderDto{" +
-                "checkIn=" + checkIn +
-                ", checkOut=" + checkOut +
-                ", hotelId='" + hotelId + '\'' +
-                ", rooms=" + rooms +
-                ", state='" + state + '\'' +
-                ", userId='" + userId + '\'' +
-                '}';
+    public BigDecimal getTotalAmount() {
+        return totalAmount;
+    }
+
+    public void setTotalAmount(BigDecimal totalAmount) {
+        this.totalAmount = totalAmount;
     }
 }

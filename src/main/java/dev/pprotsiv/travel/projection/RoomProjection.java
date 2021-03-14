@@ -1,5 +1,7 @@
 package dev.pprotsiv.travel.projection;
 
+import java.math.BigDecimal;
+
 public interface RoomProjection {
     String getId();
 
@@ -8,4 +10,6 @@ public interface RoomProjection {
     Integer getSleeps();
 
     Integer getHotelId();
+
+    BigDecimal getPrice();
 }

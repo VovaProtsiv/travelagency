@@ -7,4 +7,5 @@ export class Order {
   hotelId: number;
   hotelName: string;
   rooms:string[];
+  totalAmount:number;
 }

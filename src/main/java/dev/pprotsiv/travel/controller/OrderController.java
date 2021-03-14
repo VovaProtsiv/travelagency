@@ -5,13 +5,14 @@ import dev.pprotsiv.travel.model.Order;
 import dev.pprotsiv.travel.model.State;
 import dev.pprotsiv.travel.model.User;
 import dev.pprotsiv.travel.projection.OrderProjection;
+import dev.pprotsiv.travel.service.AccountService;
 import dev.pprotsiv.travel.service.OrderService;
 import dev.pprotsiv.travel.service.UserService;
-import org.springframework.data.domain.jaxb.SpringDataJaxb;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 @RestController
@@ -20,10 +21,12 @@ import java.util.List;
 public class OrderController {
     private final OrderService orderService;
     private final UserService userService;
+    private final AccountService accountService;
 
-    public OrderController(OrderService orderService, UserService userService) {
+    public OrderController(OrderService orderService, UserService userService, AccountService accountService) {
         this.orderService = orderService;
         this.userService = userService;
+        this.accountService = accountService;
     }
 
     @GetMapping("/{userId}/all")
@@ -33,7 +36,13 @@ public class OrderController {
 
     @PostMapping("/{userId}")
     public ResponseEntity<Order> createOrder(@PathVariable long userId, @RequestBody OrderDto dto) {
+        dto.setTotalAmount(accountService.getTotalAmount(dto));
         return ResponseEntity.status(HttpStatus.OK).body(orderService.create(dto));
+    }
+
+    @PostMapping("/total-amount")
+    public ResponseEntity<BigDecimal> getTotalAmount(@RequestBody OrderDto dto) {
+        return ResponseEntity.status(HttpStatus.OK).body(accountService.getTotalAmount(dto));
     }
 
     @DeleteMapping("/remove/{order_id}")

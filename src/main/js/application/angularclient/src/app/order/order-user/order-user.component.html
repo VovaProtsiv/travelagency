@@ -5,7 +5,7 @@
       <tr>
         <th scope="col">Order ID</th>
         <th scope="col">Check-in</th>
-        <th scope="col">Check-ou</th>
+        <th scope="col">Check-out</th>
         <th scope="col">State</th>
         <th scope="col">Total price</th>
         <th scope="col">Rooms</th>
@@ -18,13 +18,22 @@
         <td>{{ order.checkIn }}</td>
         <td>{{ order.checkOut }}</td>
         <td>{{ order.state }}</td>
-        <td>****$</td>
+        <td>{{order.totalAmount}}</td>
         <td>
-          <button  class="btn btn-info" (click)="getRooms(order)">{{order.hotelName}}</button>
+          <ng-template #popContent>
+            <ul class="list-group" *ngFor="let room of rooms">
+              <li class="list-group-item">{{room.name}} sleeps: {{room.sleeps}}, price: {{room.price}} $</li>
+
+            </ul>
+            <div>{{hotel.street}} street {{hotel.houseNumber}}, {{hotel.city}}, {{hotel.country }}</div>
+          </ng-template>
+          <ng-template #popTitle>Ordered rooms</ng-template>
+          <button type="button" class="btn btn-info" (click)="getRooms(order)" [ngbPopover]="popContent"
+                  [popoverTitle]="popTitle">{{order.hotelName}}</button>
         </td>
-        <td >
+        <td>
           <div *ngIf="order.state==='NEW'">
-          <button class="btn btn-info" (click)="cancelOrder(order.id)">Cancel</button>
+            <button class="btn btn-info" (click)="cancelOrder(order.id)">Cancel</button>
           </div>
         </td>
 

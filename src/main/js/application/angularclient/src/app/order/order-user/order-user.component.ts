@@ -5,6 +5,9 @@ import {OrderService} from "../../service/order-service";
 import {HotelService} from "../../service/hotel-service";
 import {TokenStorage} from "../../service/token-storage";
 import {first} from "rxjs/operators";
+import {Room} from "../../model/room";
+import {RoomService} from "../../service/room-service";
+import {Hotel} from "../../model/hotel";
 
 @Component({
   selector: 'app-order-user',
@@ -13,8 +16,9 @@ import {first} from "rxjs/operators";
 })
 export class OrderUserComponent implements OnInit {
   orders: Order[];
-
-  constructor(private token: TokenStorage, private route: ActivatedRoute, private router: Router, private orderService: OrderService, private hotelService: HotelService) {
+  rooms: Room[];
+  hotel:Hotel;
+  constructor(private token: TokenStorage, private route: ActivatedRoute, private router: Router, private orderService: OrderService, private roomService: RoomService, private hotelService: HotelService) {
   }
 
   ngOnInit(): void {
@@ -24,11 +28,14 @@ export class OrderUserComponent implements OnInit {
   }
 
   getRooms(order: Order) {
+       this.roomService.findByOrderId(order.id).subscribe(data=>{this.rooms=data;
 
+       });
+
+       this.hotelService.getHotelById(order.hotelId).subscribe(data=>this.hotel = data);
   }
 
   cancelOrder(id: string) {
-    console.log(id)
     this.orderService.cancelBooking(id).pipe(first()).subscribe(result => location.reload());
   }
 }

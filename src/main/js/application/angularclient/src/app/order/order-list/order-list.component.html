@@ -18,7 +18,7 @@
         <td>{{ order.checkIn }}</td>
         <td>{{ order.checkOut }}</td>
         <td>{{ order.state }}</td>
-        <td>****$</td>
+        <td>{{order.totalAmount}}</td>
         <td>
           <ng-template #popContent>
             <ul class="list-group" *ngFor="let room of rooms">
