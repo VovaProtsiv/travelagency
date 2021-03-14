@@ -14,31 +14,30 @@ import {TokenStorage} from "./token-storage";
 import {tap} from "rxjs/operators";
 import {Router} from "@angular/router";
 
-const TOKEN_HEADER_KEY = 'Authorization';       // for Spring Boot back-end
-// const TOKEN_HEADER_KEY = 'x-access-token';   // for Node.js Express back-end
+const TOKEN_HEADER_KEY = 'Authorization';
 
 @Injectable()
 export class AuthInterceptor implements HttpInterceptor {
-  constructor(private token: TokenStorage,private router: Router) {
+  constructor(private token: TokenStorage, private router: Router) {
   }
 
   intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
     let authReq = req;
     const token = this.token.getToken();
     if (token != null) {
-      // for Spring Boot back-end
       authReq = req.clone({headers: req.headers.set(TOKEN_HEADER_KEY, 'Bearer ' + token)});
-
-      // for Node.js Express back-end
-      // authReq = req.clone({ headers: req.headers.set(TOKEN_HEADER_KEY, token) });
     }
-    return next.handle(authReq).pipe( tap(() => {},
+    return next.handle(authReq).pipe(tap(() => {
+      },
       (err: any) => {
         if (err instanceof HttpErrorResponse) {
-          if (err.status !== 401) {
-            return;
+          if (err.status == 401) {
+            this.router.navigate(['login']);
           }
-          this.router.navigate(['login']);
+          if (err.status == 500) {
+            this.router.navigate(['error']);
+          }
+          return;
         }
       }));
   }

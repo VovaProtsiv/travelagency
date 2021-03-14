@@ -19,6 +19,7 @@ import {HotelAdminComponent} from "./hotel/hotel-admin/hotel-admin.component";
 import {OrderUserComponent} from "./order/order-user/order-user.component";
 import {AuthGuardService} from "./service/auth-guard.service";
 import {NotFoundComponent} from "./exception/not-found/not-found.component";
+import {InternalServerErrorComponent} from "./exception/internal-server-error/internal-server-error.component";
 
 
 const routes: Routes = [
@@ -41,7 +42,9 @@ const routes: Routes = [
   {path: 'register', component: RegisterComponent},
   {path: 'profile', component: ProfileComponent, canActivate: [AuthGuardService]},
   {path: '', redirectTo: 'home', pathMatch: 'full'},
+  {path: 'error', component:InternalServerErrorComponent},
   {path: '**', component:NotFoundComponent}
+
 ];
 
 @NgModule({
