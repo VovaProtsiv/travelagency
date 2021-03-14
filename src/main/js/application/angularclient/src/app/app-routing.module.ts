@@ -17,28 +17,31 @@ import {RegisterComponent} from "./register/register.component";
 import {ProfileComponent} from "./profile/profile.component";
 import {HotelAdminComponent} from "./hotel/hotel-admin/hotel-admin.component";
 import {OrderUserComponent} from "./order/order-user/order-user.component";
+import {AuthGuardService} from "./service/auth-guard.service";
+import {NotFoundComponent} from "./exception/not-found/not-found.component";
 
 
 const routes: Routes = [
-  {path: 'users', component: UserListComponent},
-  {path: 'adduser', component: UserFormComponent},
-  {path: 'edit-user/:userId', component: EditUserComponent},
-  {path: 'orders/:userId', component: ClientRoomListComponent},
-  {path: 'hotels', component: HotelListComponent},
-  {path: 'add-hotel', component: HotelFormComponent},
-  {path: 'hotel-edit', component: HotelEditComponent},
-  {path: 'hotel/:id/add-room', component: RoomFormComponent},
-  {path: 'hotel/:hotelId', component: HotelAdminComponent},
-  {path: 'rooms/:id/all', component: RoomListComponent},
-  {path: 'rooms/:hotelId/edit/:roomId', component: RoomEditComponent},
-  {path: 'home', component: HomeComponent},
-  {path: 'home/:userId/hotel/:hotelId', component: ClientRoomListComponent},
-  {path: 'orders/:userId/all', component: OrderListComponent},
-  {path: 'my-orders', component: OrderUserComponent},
+  {path: 'users', component: UserListComponent, canActivate: [AuthGuardService]},
+  {path: 'adduser', component: UserFormComponent, canActivate: [AuthGuardService]},
+  {path: 'edit-user/:userId', component: EditUserComponent, canActivate: [AuthGuardService]},
+  {path: 'orders/:userId', component: ClientRoomListComponent, canActivate: [AuthGuardService]},
+  {path: 'hotels', component: HotelListComponent, canActivate: [AuthGuardService]},
+  {path: 'add-hotel', component: HotelFormComponent, canActivate: [AuthGuardService]},
+  {path: 'hotel-edit', component: HotelEditComponent, canActivate: [AuthGuardService]},
+  {path: 'hotel/:id/add-room', component: RoomFormComponent, canActivate: [AuthGuardService]},
+  {path: 'hotel/:hotelId', component: HotelAdminComponent, canActivate: [AuthGuardService]},
+  {path: 'rooms/:id/all', component: RoomListComponent, canActivate: [AuthGuardService]},
+  {path: 'rooms/:hotelId/edit/:roomId', component: RoomEditComponent, canActivate: [AuthGuardService]},
+  {path: 'home', component: HomeComponent, canActivate: [AuthGuardService]},
+  {path: 'home/:userId/hotel/:hotelId', component: ClientRoomListComponent, canActivate: [AuthGuardService]},
+  {path: 'orders/:userId/all', component: OrderListComponent, canActivate: [AuthGuardService]},
+  {path: 'my-orders', component: OrderUserComponent, canActivate: [AuthGuardService]},
   {path: 'login', component: LoginComponent},
   {path: 'register', component: RegisterComponent},
-  {path: 'profile', component: ProfileComponent},
-  {path: '', redirectTo: 'home', pathMatch: 'full'}
+  {path: 'profile', component: ProfileComponent, canActivate: [AuthGuardService]},
+  {path: '', redirectTo: 'home', pathMatch: 'full'},
+  {path: '**', component:NotFoundComponent}
 ];
 
 @NgModule({
