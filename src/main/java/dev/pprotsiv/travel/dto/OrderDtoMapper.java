@@ -15,6 +15,7 @@ public class OrderDtoMapper {
         order.setCheckIn(dto.getCheckIn());
         order.setCheckOut(dto.getCheckOut());
         order.setState(dto.getState());
+        order.setTotalAmount(dto.getTotalAmount());
         User user = new User();
         user.setId(Long.parseLong(dto.getUserId()));
         order.setClient(user);

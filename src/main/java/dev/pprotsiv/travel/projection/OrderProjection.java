@@ -1,5 +1,6 @@
 package dev.pprotsiv.travel.projection;
 
+import java.math.BigDecimal;
 import java.time.LocalDate;
 
 public interface OrderProjection {
@@ -17,5 +18,5 @@ public interface OrderProjection {
 
     String getState();
 
-
+    BigDecimal getTotalAmount();
 }
