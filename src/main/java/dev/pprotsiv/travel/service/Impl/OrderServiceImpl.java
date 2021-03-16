@@ -9,15 +9,18 @@ import dev.pprotsiv.travel.model.Order;
 import dev.pprotsiv.travel.model.State;
 import dev.pprotsiv.travel.projection.OrderProjection;
 import dev.pprotsiv.travel.repo.OrderRepository;
+import dev.pprotsiv.travel.service.AccountService;
 import dev.pprotsiv.travel.service.OrderService;
 import dev.pprotsiv.travel.service.RoomService;
 import org.springframework.stereotype.Service;
 
 import javax.persistence.EntityNotFoundException;
+import java.math.BigDecimal;
+import java.time.Period;
 import java.util.*;
 
 @Service
-public class OrderServiceImpl implements OrderService {
+public class OrderServiceImpl implements OrderService, AccountService {
     private final OrderRepository orderRepository;
     private final RoomService roomService;
 
@@ -41,6 +44,22 @@ public class OrderServiceImpl implements OrderService {
             }
         }
         throw new NullEntityReferenceException("Order cannot be 'null'");
+    }
+
+    @Override
+    public BigDecimal getTotalAmount(OrderDto dto) {
+        if (dto==null){
+            throw new NullEntityReferenceException("Order cannot be 'null'");
+        }
+        isValidDate(dto);
+        int days = Period.between(dto.getCheckIn(), dto.getCheckOut()).getDays();
+        return totalRoomsPricePerDay(dto).multiply(new BigDecimal(days));
+    }
+
+    private BigDecimal totalRoomsPricePerDay(OrderDto dto) {
+        return dto.getRooms().stream()
+                .map(e -> roomService.readById(Long.parseLong(e)).getPrice())
+                .reduce(BigDecimal.ZERO, BigDecimal::add);
     }
 
     private void isValidDate(OrderDto dto) {
