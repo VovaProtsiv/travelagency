@@ -13,7 +13,7 @@
       <tr *ngFor="let room of rooms">
         <td>{{ room.sleeps }}</td>
         <td>{{ room.name }}</td>
-        <td>****$</td>
+        <td>{{room.price}}</td>
         <td><button class="btn btn-success"(click)="updateRoom(room)" >Edit</button></td>
         <td><button class="btn btn-success" (click)="deleteRoom(room)">Delete</button></td>
       </tr>

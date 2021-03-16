@@ -28,7 +28,7 @@
       <tr *ngFor="let room of rooms">
         <td>{{ room.sleeps }}</td>
         <td>{{ room.name }}</td>
-        <td>{{hotel.price}} $</td>
+        <td>{{room.price}}</td>
         <td id="edit">
           <button class="btn btn-info" (click)="updateRoom(room)">Edit</button>
         </td>
