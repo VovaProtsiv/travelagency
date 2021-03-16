@@ -1,44 +1,51 @@
-<div class="col-md-6 user-container">
-  <h2 class="text-center">Edit Hotel</h2>
-<form [formGroup]="editForm" >
-  <div class="form-group">
-    <label>
-      Id:
-      <input type="text" formControlName="id" readonly>
-    </label>
+<div class="container-fluid">
+  <div class="col-md-8 col-xs-12 col-sm-12 login_form ">
+    <div class="container-fluid">
+      <h2 class="text-center">Edit Hotel</h2>
+      <form [formGroup]="editForm">
+        <div class="form-group">
+          <label for="idHotel">
+            Id:
+          </label>
+          <input type="text" class="form-control" id="idHotel" formControlName="id" readonly>
+        </div>
+        <div class="form-group">
+          <label for="name">
+            Name:
+          </label>
+          <input type="text" class="form-control" id="name" formControlName="name">
+        </div>
+        <h2 class="text-center">Address</h2>
+        <div class="form-group">
+          <label for="country">
+            Country:
+          </label>
+          <input type="text" class="form-control" id="country" formControlName="country">
+        </div>
+        <div class="form-group">
+          <label for="city">
+            City:
+          </label>
+          <input type="text" class="form-control" id="city" formControlName="city">
+
+        </div>
+        <div class="form-group">
+          <label for="street">
+            Street:
+          </label>
+          <input type="text" class="form-control" id="street" formControlName="street">
+
+        </div>
+        <div class="form-group">
+          <label for="houseNumber">
+            House number:
+          </label>
+          <input type="text" class="form-control" id="houseNumber" formControlName="houseNumber">
+
+        </div>
+        <button class="btn btn-success" (click)="ngOnInit()">Cancel</button>
+        <button class="btn btn-success" (click)="onSubmit()">Save</button>
+      </form>
+    </div>
   </div>
-  <div class="form-group">
-    <label>
-    Name:
-    <input type="text" formControlName="name">
-  </label>
-  </div>
-  <h2>Address</h2>
-  <div class="form-group">
-  <label>
-    Country:
-    <input type="text" formControlName="country">
-  </label>
-  </div>
-  <div class="form-group">
-  <label>
-    City:
-    <input type="text" formControlName="city" >
-  </label>
-  </div>
-  <div class="form-group">
-  <label>
-    Street:
-    <input type="text" formControlName="street">
-  </label>
-  </div>
-  <div class="form-group">
-  <label>
-    House number:
-    <input type="text" formControlName="houseNumber">
-  </label>
-  </div>
-  <button class="btn btn-success" (click)="ngOnInit()">Cancel</button>
-  <button class="btn btn-success" (click)="onSubmit()">Update</button>
-</form>
 </div>

@@ -9,12 +9,18 @@
 
       <div class="form-group">
         <label for="sleeps">Sleeps</label>
-        <input type="number" [(ngModel)]="room.sleeps" ngModel [email]="true" class="form-control" id="sleeps"
+        <input type="number" [(ngModel)]="room.sleeps"  class="form-control" id="sleeps"
                name="sleeps"
                placeholder="Enter room sleeps">
 
       </div>
+      <div class="form-group">
+        <label for="sleeps">Price</label>
+        <input type="number" [(ngModel)]="room.price"  class="form-control" id="price"
+               name="price"
+               placeholder="Enter room price">
 
+      </div>
       <button type="submit" class="btn btn-info">Add</button>
     </form>
   </div>

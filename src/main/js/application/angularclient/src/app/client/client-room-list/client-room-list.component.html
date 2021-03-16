@@ -1,4 +1,10 @@
 <ng-template #notavailable>Not available</ng-template>
+<ng-template #invalidValue>
+  <div class="alert alert-primary"
+       role="alert">
+    Please fill out all required fields  to confirm your booking
+  </div>
+</ng-template>
 
 <div class="container">
   <div class="card flex-row flex-wrap">
@@ -23,13 +29,20 @@
 
             <li class="list-inline-item">
               <label for="Check-in" class="form-label">Check-in</label>
-              <input type="date" class="form-control" (change)="onChangeDate($event)" placeholder="Check-in" id="Check-in"
-                     formControlName="checkIn">
+              <input type="date" class="form-control" (change)="onChangeDate($event)" placeholder="Check-in"
+                     id="Check-in"
+                     formControlName="checkIn"
+                     min="{{minDate| date:'yyyy-MM-dd'}}">
             </li>
             <li class="list-inline-item">
               <label for="Check-out" class="form-label">Check-out</label>
-              <input type="date" class="form-control" placeholder="Check-out" (change)="onChangeDate($event)" id="Check-out" formControlName="checkOut">
+              <input type="date" class="form-control" placeholder="Check-out" (change)="onChangeDate($event)"
+                     id="Check-out" formControlName="checkOut" min="{{maxDate | date:'yyyy-MM-dd'}}">
             </li>
+            <div class="alert alert-danger"
+                 role="alert" *ngIf="form.get('checkOut').errors">
+              Check-out should be greater than check-in!
+            </div>
           </ul>
         </div>
       </div>
@@ -45,27 +58,36 @@
         </tr>
         </thead>
         <tbody>
-        <tr *ngFor="let room of rooms" >
+        <tr *ngFor="let room of rooms">
 
-            <td>{{ room.sleeps }}</td>
-            <td>{{ room.name }}</td>
-            <td>{{room.price}} $</td>
-            <td *ngIf="roomsOrderedID">
+          <td>{{ room.sleeps }}</td>
+          <td>{{ room.name }}</td>
+          <td>{{room.price}}</td>
+          <td *ngIf="roomsOrderedID">
 
-              <label for="selectRoom"></label>
-              <input class="form-check-input" type="checkbox" *ngIf="!roomsOrderedID.includes(room.id);else notavailable" [value]="room.id" (change)="onCheckboxChange($event)"
-                     id="selectRoom">
+            <label for="selectRoom"></label>
+            <input class="form-check-input" type="checkbox" *ngIf="!roomsOrderedID.includes(room.id);else notavailable"
+                   [value]="room.id" (change)="onCheckboxChange($event)"
+                   id="selectRoom">
 
-            </td>
+          </td>
 
         </tr>
         <tr>
           <td colspan="2"> Total amount:</td>
           <td>{{totalAmount}}</td>
+          <td>
+            <div class="alert alert-danger"
+                 role="alert" *ngIf="!order.rooms || order.rooms.length==0">At least one room must be selected!
+            </div>
+          </td>
         </tr>
+
         </tbody>
       </table>
-      <button type="submit" class="btn btn-info">Reserve</button>
+      <button *ngIf="!form.get('checkOut').errors && isValidForm(); else invalidValue" type="submit"
+              class="btn btn-info">Reserve
+      </button>
     </form>
   </div>
 </div>
