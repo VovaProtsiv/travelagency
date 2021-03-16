@@ -22,6 +22,7 @@ export class RoomEditComponent implements OnInit {
       id: [''],
       name: ['', Validators.required],
       sleeps: ['', Validators.required],
+      price: ['', Validators.required],
       hotelId: ['', Validators.required],
      });
      this.roomService.getRoom(parseInt(this.route.snapshot.paramMap.get('roomId')))
@@ -30,6 +31,7 @@ export class RoomEditComponent implements OnInit {
           id: data.id,
           name: data.name,
           sleeps: data.sleeps,
+          price: data.price,
           hotelId:data.hotelId
         });
       });
