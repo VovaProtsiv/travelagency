@@ -32,7 +32,7 @@ public class OrderServiceImpl implements OrderService, AccountService {
     @Override
     public Order create(OrderDto dto) {
         if (dto != null) {
-            if (dto.getRooms().isEmpty()){
+            if (dto.getRooms() == null || dto.getRooms().isEmpty()) {
                 throw new IllegalArgumentException("At least one room must be selected.");
             }
             Order order = OrderDtoMapper.fromDto(dto);
@@ -48,7 +48,7 @@ public class OrderServiceImpl implements OrderService, AccountService {
 
     @Override
     public BigDecimal getTotalAmount(OrderDto dto) {
-        if (dto==null){
+        if (dto == null) {
             throw new NullEntityReferenceException("Order cannot be 'null'");
         }
         isValidDate(dto);
@@ -66,7 +66,7 @@ public class OrderServiceImpl implements OrderService, AccountService {
         if (dto.getCheckIn() == null || dto.getCheckOut() == null) {
             throw new IllegalDateException("Check-in and check-out can't be 'null'");
         }
-        if (!dto.getCheckIn().isBefore(dto.getCheckOut())){
+        if (!dto.getCheckIn().isBefore(dto.getCheckOut())) {
             throw new IllegalDateException("Check-out should be greater than check-in");
         }
     }
@@ -85,9 +85,9 @@ public class OrderServiceImpl implements OrderService, AccountService {
 
     @Override
     public OrderProjection readProjectionById(long id) {
-        return Optional.ofNullable(orderRepository.getProjectionById(id)).orElseThrow(
-                () -> new EntityNotFoundException("Order with id " + id + " not found")
-        );
+        return Optional.ofNullable(orderRepository.getProjectionById(id))
+                .orElseThrow(() -> new EntityNotFoundException("Order with id " + id + " not found")
+                );
     }
 
     @Override
@@ -109,6 +109,4 @@ public class OrderServiceImpl implements OrderService, AccountService {
         List<OrderProjection> orders = orderRepository.getAllOrderProjectionByUserId(id);
         return orders.isEmpty() ? new ArrayList<>() : orders;
     }
-
-
 }

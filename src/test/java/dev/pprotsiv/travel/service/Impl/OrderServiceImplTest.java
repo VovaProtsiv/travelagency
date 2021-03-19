@@ -5,9 +5,11 @@ import dev.pprotsiv.travel.exception.BookedRoomsExceptions;
 import dev.pprotsiv.travel.exception.IllegalDateException;
 import dev.pprotsiv.travel.exception.NullEntityReferenceException;
 import dev.pprotsiv.travel.model.Order;
+import dev.pprotsiv.travel.model.Room;
 import dev.pprotsiv.travel.model.State;
 import dev.pprotsiv.travel.projection.OrderProjection;
 import dev.pprotsiv.travel.repo.OrderRepository;
+import dev.pprotsiv.travel.service.AccountService;
 import dev.pprotsiv.travel.service.OrderService;
 import dev.pprotsiv.travel.service.RoomService;
 import org.junit.jupiter.api.Test;
@@ -22,6 +24,7 @@ import org.springframework.data.projection.SpelAwareProxyProjectionFactory;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 import javax.persistence.EntityNotFoundException;
+import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.*;
 
@@ -40,6 +43,9 @@ class OrderServiceImplTest {
 
     @Autowired
     private OrderService orderService;
+
+    @Autowired
+    private AccountService accountService;
 
     @MockBean
     private RoomService roomService;
@@ -162,6 +168,32 @@ class OrderServiceImplTest {
 
     @Test
     void updateTest() {
+        Order order1 = new Order();
+        order1.setId(1L);
+        Order order2 = new Order();
+        order2.setId(2L);
+        Mockito.when(orderRepository.findById(order1.getId())).thenReturn(Optional.of(order1));
+        Mockito.when(orderRepository.findById(order2.getId())).thenReturn(Optional.of(order2));
+        Mockito.when(orderRepository.save(order1)).thenReturn(order1);
+
+        Mockito.when(orderRepository.save(order2)).thenReturn(order2);
+        assertEquals(order1, orderService.update(order1));
+        assertEquals(order2, orderService.update(order2));
+        assertNotEquals(order1, orderService.update(order2));
+    }
+
+    @Test
+    void updateNotExistingOrderTest() {
+        Order order1 = new Order();
+        order1.setId(1L);
+        assertThrows(EntityNotFoundException.class, () -> orderService.update(order1));
+    }
+
+    @Test
+    void updateOrderNullTest() {
+        Order order1 = new Order();
+        order1.setId(1L);
+        assertThrows(NullEntityReferenceException.class, () -> orderService.update(null));
     }
 
     @Test
@@ -198,5 +230,46 @@ class OrderServiceImplTest {
     @Test
     void getEmptyProjectionsByUserIdTest() {
         assertTrue(orderService.getProjectionsByUserId(2L).isEmpty());
+    }
+
+    @Test
+    void getTotalAmount() {
+        OrderDto dto = new OrderDto();
+        dto.setCheckIn(LocalDate.now());
+        dto.setCheckOut(LocalDate.now().plusDays(2));
+        Set<String> rooms = new HashSet<>();
+        rooms.add("1");
+        rooms.add("2");
+        dto.setRooms(rooms);
+        Room room = new Room();
+        room.setId(1L);
+        room.setPrice(new BigDecimal(100));
+        Room room1 = new Room();
+        room1.setId(2L);
+        room1.setPrice(new BigDecimal(150));
+        Mockito.when(roomService.readById(1L)).thenReturn(room);
+        Mockito.when(roomService.readById(2L)).thenReturn(room1);
+        assertEquals(new BigDecimal(500), accountService.getTotalAmount(dto));
+    }
+
+    @Test
+    void getTotalAmountDtoIsNull() {
+        assertThrows(NullEntityReferenceException.class, () -> accountService.getTotalAmount(null));
+    }
+
+    @Test
+    void getTotalAmountInValidDate() {
+        OrderDto dto = new OrderDto();
+        dto.setCheckIn(LocalDate.now());
+        dto.setCheckOut(LocalDate.now());
+        assertThrows(IllegalDateException.class, () -> accountService.getTotalAmount(dto));
+        dto.setCheckIn(null);
+        dto.setCheckOut(null);
+        assertThrows(IllegalDateException.class, () -> accountService.getTotalAmount(dto));
+        dto.setCheckIn(LocalDate.now());
+        assertThrows(IllegalDateException.class, () -> accountService.getTotalAmount(dto));
+        dto.setCheckIn(LocalDate.now());
+        dto.setCheckOut(LocalDate.now().minusDays(1));
+        assertThrows(IllegalDateException.class, () -> accountService.getTotalAmount(dto));
     }
 }
