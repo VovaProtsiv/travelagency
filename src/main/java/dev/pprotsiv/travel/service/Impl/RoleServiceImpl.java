@@ -7,6 +7,7 @@ import dev.pprotsiv.travel.repo.RoleRepository;
 import dev.pprotsiv.travel.service.RoleService;
 import org.springframework.stereotype.Service;
 
+import javax.persistence.EntityNotFoundException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -22,7 +23,7 @@ public class RoleServiceImpl implements RoleService {
     @Override
     public Role findByName(ERole name) {
         return roleRepository.findByName(name)
-                .orElseThrow(() -> new RuntimeException("Error: Role is not found."));
+                .orElseThrow(() -> new EntityNotFoundException("Error: Role is not found."));
     }
 
     @Override
