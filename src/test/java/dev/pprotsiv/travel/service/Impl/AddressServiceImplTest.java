@@ -2,12 +2,8 @@ package dev.pprotsiv.travel.service.Impl;
 
 import dev.pprotsiv.travel.exception.NullEntityReferenceException;
 import dev.pprotsiv.travel.model.Address;
-import dev.pprotsiv.travel.model.Order;
 import dev.pprotsiv.travel.repo.AddressRepository;
-import dev.pprotsiv.travel.repo.OrderRepository;
 import dev.pprotsiv.travel.service.AddressService;
-import dev.pprotsiv.travel.service.OrderService;
-import dev.pprotsiv.travel.service.RoomService;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mockito;
