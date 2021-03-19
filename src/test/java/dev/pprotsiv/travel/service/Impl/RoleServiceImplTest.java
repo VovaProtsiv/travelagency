@@ -1,5 +1,6 @@
 package dev.pprotsiv.travel.service.Impl;
 
+import dev.pprotsiv.travel.exception.NullEntityReferenceException;
 import dev.pprotsiv.travel.model.ERole;
 import dev.pprotsiv.travel.model.Role;
 import dev.pprotsiv.travel.projection.RoleProjection;
@@ -52,7 +53,7 @@ class RoleServiceImplTest {
 
     @Test
     void findByNullName() {
-        assertThrows(EntityNotFoundException.class, () -> roleService.findByName(null));
+        assertThrows(NullEntityReferenceException.class, () -> roleService.findByName(null));
     }
 
     @Test
