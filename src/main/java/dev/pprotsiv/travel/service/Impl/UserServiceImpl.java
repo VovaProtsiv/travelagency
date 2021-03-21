@@ -4,7 +4,6 @@ import dev.pprotsiv.travel.dto.UserDto;
 import dev.pprotsiv.travel.dto.UserDtoMapper;
 import dev.pprotsiv.travel.exception.NullEntityReferenceException;
 import dev.pprotsiv.travel.model.User;
-import dev.pprotsiv.travel.projection.UserProjection;
 import dev.pprotsiv.travel.repo.UserRepository;
 import dev.pprotsiv.travel.service.UserService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -13,7 +12,6 @@ import org.springframework.stereotype.Service;
 import javax.persistence.EntityNotFoundException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 
 @Service
 public class UserServiceImpl implements UserService {
@@ -38,17 +36,6 @@ public class UserServiceImpl implements UserService {
                 () -> new EntityNotFoundException("User with id " + id + " not found"));
     }
 
-    @Override
-    public UserProjection getProjection(long id) {
-        return Optional.ofNullable(userRepository.findProjectionById(id)).orElseThrow(
-                () -> new EntityNotFoundException("User with id " + id + " not found")
-        );
-    }
-
-    @Override
-    public UserDto getDto(long id) {
-        return UserDtoMapper.convertToDto(readById(id));
-    }
 
     @Override
     public User update(User user) {
@@ -69,8 +56,8 @@ public class UserServiceImpl implements UserService {
 
 
     @Override
-    public List<UserDto> getAllDtos() {
-        List<UserDto> allUsers = UserDtoMapper.convertToDto(userRepository.findAll());
+    public List<User> getAll() {
+        List<User> allUsers = userRepository.findAll();
         return allUsers.isEmpty() ? new ArrayList<>() : allUsers;
     }
 

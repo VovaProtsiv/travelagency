@@ -1,15 +1,8 @@
 package dev.pprotsiv.travel.service.Impl;
 
-import dev.pprotsiv.travel.dto.UserDto;
 import dev.pprotsiv.travel.exception.NullEntityReferenceException;
-import dev.pprotsiv.travel.model.Role;
-import dev.pprotsiv.travel.model.Room;
 import dev.pprotsiv.travel.model.User;
-import dev.pprotsiv.travel.projection.RoomProjection;
-import dev.pprotsiv.travel.projection.UserProjection;
-import dev.pprotsiv.travel.repo.RoomRepository;
 import dev.pprotsiv.travel.repo.UserRepository;
-import dev.pprotsiv.travel.service.RoomService;
 import dev.pprotsiv.travel.service.UserService;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -18,13 +11,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.TestConfiguration;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.context.annotation.Bean;
-import org.springframework.data.projection.ProjectionFactory;
-import org.springframework.data.projection.SpelAwareProxyProjectionFactory;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 import javax.persistence.EntityNotFoundException;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -77,51 +70,6 @@ class UserServiceImplTest {
     }
 
     @Test
-    void getProjection() {
-        ProjectionFactory factory = new SpelAwareProxyProjectionFactory();
-        UserProjection userProjection = factory.createProjection(UserProjection.class);
-        Mockito.when(userRepository.findProjectionById(1L)).thenReturn(userProjection);
-        assertEquals(userProjection, userService.getProjection(1L));
-    }
-
-    @Test
-    void readProjectionByNotExistingIdTest() {
-        assertThrows(EntityNotFoundException.class, () -> userService.getProjection(2L));
-    }
-
-    @Test
-    void getDto() {
-        User user = new User();
-        user.setId(1L);
-        String pass = "password";
-        String username = "username";
-        String email = "email@email.com";
-        user.setPassword(pass);
-        user.setUsername(username);
-        user.setEmail(email);
-        Role role = new Role();
-        role.setId(2);
-        Set<Role> roles = new HashSet<>();
-        roles.add(role);
-        user.setRoles(roles);
-        Long id = user.getId();
-        Mockito.when(userRepository.findById(id)).thenReturn(Optional.of(user));
-        UserDto dto = userService.getDto(id);
-        assertEquals(id, dto.getId());
-        assertEquals(pass, dto.getPassword());
-        assertEquals(username, dto.getUsername());
-        assertEquals(email, dto.getEmail());
-        assertEquals(roles, dto.getRoles());
-
-    }
-
-    @Test
-    void getDtoByNotExistingIdTest() {
-        Mockito.when((userRepository.findById(2L))).thenReturn(Optional.empty());
-        assertThrows(EntityNotFoundException.class, () -> userService.getDto(2L));
-    }
-
-    @Test
     void update() {
         User user1 = new User();
         user1.setId(1L);
@@ -161,8 +109,16 @@ class UserServiceImplTest {
     }
 
     @Test
-    void getAllDtos() {
-        //TODO
+    void getAll() {
+        User user1 = new User();
+        user1.setId(1L);
+        User user2 = new User();
+        user2.setId(2L);
+        List<User> users = new ArrayList<>();
+        users.add(user1);
+        users.add(user2);
+        Mockito.when(userRepository.findAll()).thenReturn(users);
+        assertEquals(users,userService.getAll());
     }
 
 
