@@ -1,8 +1,6 @@
 package dev.pprotsiv.travel.service;
 
-import dev.pprotsiv.travel.dto.UserDto;
 import dev.pprotsiv.travel.model.User;
-import dev.pprotsiv.travel.projection.UserProjection;
 
 import java.util.List;
 
@@ -11,21 +9,15 @@ public interface UserService {
 
     User readById(long id);
 
-    UserProjection getProjection(long id);
-
-    UserDto getDto(long id);
-
     User update(User user);
 
     void delete(long id);
 
-    List<UserDto> getAllDtos();
+    List<User> getAll();
 
     User findByUsername(String username);
 
     boolean existsByUsername(String username);
 
     boolean existsByEmail(String email);
-
 }
-

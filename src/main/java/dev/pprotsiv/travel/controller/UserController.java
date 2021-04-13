@@ -1,9 +1,9 @@
 package dev.pprotsiv.travel.controller;
 
 import dev.pprotsiv.travel.dto.UserDto;
+import dev.pprotsiv.travel.dto.UserDtoMapper;
 import dev.pprotsiv.travel.model.User;
 import dev.pprotsiv.travel.projection.RoleProjection;
-import dev.pprotsiv.travel.projection.UserProjection;
 import dev.pprotsiv.travel.service.RoleService;
 import dev.pprotsiv.travel.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,7 +30,7 @@ public class UserController {
 
     @GetMapping
     public ResponseEntity<List<UserDto>> getUsers() {
-        return ResponseEntity.status(HttpStatus.OK).body(userService.getAllDtos());
+        return ResponseEntity.status(HttpStatus.OK).body(UserDtoMapper.convertToDto(userService.getAll()));
     }
 
     @GetMapping("/roles")
@@ -44,7 +44,7 @@ public class UserController {
 
     @GetMapping("/{id}")
     public ResponseEntity<UserDto> getUserById(@PathVariable long id) {
-        return ResponseEntity.status(HttpStatus.OK).body(userService.getDto(id));
+        return ResponseEntity.status(HttpStatus.OK).body(UserDtoMapper.convertToDto(userService.readById(id)));
     }
 
     @PostMapping

@@ -9,15 +9,18 @@ import dev.pprotsiv.travel.model.Order;
 import dev.pprotsiv.travel.model.State;
 import dev.pprotsiv.travel.projection.OrderProjection;
 import dev.pprotsiv.travel.repo.OrderRepository;
+import dev.pprotsiv.travel.service.AccountService;
 import dev.pprotsiv.travel.service.OrderService;
 import dev.pprotsiv.travel.service.RoomService;
 import org.springframework.stereotype.Service;
 
 import javax.persistence.EntityNotFoundException;
+import java.math.BigDecimal;
+import java.time.Period;
 import java.util.*;
 
 @Service
-public class OrderServiceImpl implements OrderService {
+public class OrderServiceImpl implements OrderService, AccountService {
     private final OrderRepository orderRepository;
     private final RoomService roomService;
 
@@ -29,7 +32,7 @@ public class OrderServiceImpl implements OrderService {
     @Override
     public Order create(OrderDto dto) {
         if (dto != null) {
-            if (dto.getRooms().isEmpty()){
+            if (dto.getRooms() == null || dto.getRooms().isEmpty()) {
                 throw new IllegalArgumentException("At least one room must be selected.");
             }
             Order order = OrderDtoMapper.fromDto(dto);
@@ -43,11 +46,27 @@ public class OrderServiceImpl implements OrderService {
         throw new NullEntityReferenceException("Order cannot be 'null'");
     }
 
+    @Override
+    public BigDecimal getTotalAmount(OrderDto dto) {
+        if (dto == null) {
+            throw new NullEntityReferenceException("Order cannot be 'null'");
+        }
+        isValidDate(dto);
+        int days = Period.between(dto.getCheckIn(), dto.getCheckOut()).getDays();
+        return totalRoomsPricePerDay(dto).multiply(new BigDecimal(days));
+    }
+
+    private BigDecimal totalRoomsPricePerDay(OrderDto dto) {
+        return dto.getRooms().stream()
+                .map(e -> roomService.readById(Long.parseLong(e)).getPrice())
+                .reduce(BigDecimal.ZERO, BigDecimal::add);
+    }
+
     private void isValidDate(OrderDto dto) {
         if (dto.getCheckIn() == null || dto.getCheckOut() == null) {
             throw new IllegalDateException("Check-in and check-out can't be 'null'");
         }
-        if (!dto.getCheckIn().isBefore(dto.getCheckOut())){
+        if (!dto.getCheckIn().isBefore(dto.getCheckOut())) {
             throw new IllegalDateException("Check-out should be greater than check-in");
         }
     }
@@ -66,9 +85,9 @@ public class OrderServiceImpl implements OrderService {
 
     @Override
     public OrderProjection readProjectionById(long id) {
-        return Optional.ofNullable(orderRepository.getProjectionById(id)).orElseThrow(
-                () -> new EntityNotFoundException("Order with id " + id + " not found")
-        );
+        return Optional.ofNullable(orderRepository.getProjectionById(id))
+                .orElseThrow(() -> new EntityNotFoundException("Order with id " + id + " not found")
+                );
     }
 
     @Override
@@ -90,6 +109,4 @@ public class OrderServiceImpl implements OrderService {
         List<OrderProjection> orders = orderRepository.getAllOrderProjectionByUserId(id);
         return orders.isEmpty() ? new ArrayList<>() : orders;
     }
-
-
 }
