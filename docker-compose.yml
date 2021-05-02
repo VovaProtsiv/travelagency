@@ -1,0 +1,50 @@
+version: '3.7'
+
+services:
+
+  app-server:
+
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "8080:8080"
+
+    depends_on:
+      - db
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:postgresql://db:5432/travel
+      SPRING_DATASOURCE_USERNAME: postgres
+      SPRING_DATASOURCE_PASSWORD: root
+    networks:
+      - backend
+
+  ui:
+    build: ./src/main/js/application/angularclient
+    container_name: ui
+    ports:
+      - 4200:4200
+    links:
+      - app-server
+
+
+  db:
+    image: postgres
+    ports:
+      - "5433:5432"
+    restart: always
+    environment:
+      POSTGRES_DB: travel
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: root
+    volumes:
+      - db-data:/var/lib/postgres
+    networks:
+      - backend
+
+
+volumes:
+  db-data:
+
+networks:
+  backend:
