@@ -11,7 +11,7 @@ import java.util.Optional;
 import static org.junit.jupiter.api.Assertions.*;
 
 @DataJpaTest
-class UserRepositoryTest {
+class UserRepositoryTestIT {
     public static final String USER_NAME = "VovaTest";
     public static final String USER_EMAIL = "vovatest@gmail.com";
 
