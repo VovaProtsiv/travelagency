@@ -1,29 +1,70 @@
 # Travel agency 
+The Travel agency is simple implementation of Online Hotel
+Reservation System.
 
-## Technology
+This project made of 3 separate Docker containers that holds:
+-	PostgreSQL database
+-	Java backend (Spring Boot)
+-	Angular frontend
 
-Create web project for travel agency using 
+##Running the application
+     
+STEP1:
 
-### Back-end:
+First we need to install docker for windows (or linux)
 
--	Maven
--	Spring Boot
--	Spring Security
+Download Docker : https://www.docker.com/get-started
 
-### Front-end:
+Then open powershell with Administrator privilege and check ,
+```
+docker info
+```
+STEP2:
 
-- Angular
+Git clone my project from my GitHub repository:
+```
+$ git clone https://github.com/VovaProtsiv/travelagency
+```
 
-## Requirements:
+STEP3:
 
-### Roles: 
+In the terminal enter the root folder of the project and type the command:
 
--	User
--	Manager
+```
+$ docker-compose up
+```
+Now, you need to wait couple minutes so all 3 Docker containers will be up and running. After that you’ll be able to enter a frontend in a browser with a link: http://localhost:4200.
 
-### User and Manager can 
+STEP4:
 
--	find hotels in different countries
+If you want to stop it, use the following command:
+```
+$ docker-compose down
+```
+
+## How to usage the Travel Agency
+
+The entry point for a user is a website which is available under the address: http://localhost:4200/
+
+![env-vars](./docs_photos/login.jpg)
+
+I created the data.sql file in the src / main / resources folder, and it will be executed automatically at startup.
+
+###Credentials:
+
+| Name          | Password  | Role      |
+| ------------- |:---------:| :---------|
+| Ivan          | 111111    | User      |
+| Vova          | 222222    | Moderator |
+| Petro         | 333333    | Admin     |
+
+
+
+
+
+### All authenticated users can 
+
+-	find hotels in different cities 
 -	check if there are available rooms in hotel for period
 -	book available rooms on the concrete date
 
@@ -31,11 +72,9 @@ Create web project for travel agency using
 
 -	add hotels in the system
 -	add rooms to the hotel
+
+### Admin additional can
+
 -	view all users and their orders
 
-## Pages
 
-In the project should be at least three pages
--	‘Login’ page
--	‘Home page’ for User and Manager
--	‘Management’ page for Manager
