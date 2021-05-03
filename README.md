@@ -7,7 +7,7 @@ This project made of 3 separate Docker containers that holds:
 -	Java backend (Spring Boot)
 -	Angular frontend
 
-##Running the application
+## Running the application
      
 STEP1:
 
@@ -50,7 +50,7 @@ The entry point for a user is a website which is available under the address: ht
 
 I created the data.sql file in the src / main / resources folder, and it will be executed automatically at startup.
 
-###Credentials:
+### Credentials:
 
 | Name          | Password  | Role      |
 | ------------- |:---------:| :---------|
